@@ -3,25 +3,26 @@
 <nav class="navbar navbar-default navbar-fixed-top jga">
 
     <!--Hidden in extra small devices-->
+    <div class="container-fluid">
+    <div class="navbar-text hidden-xs pull-left">
 
-    <div class="navbar-header hidden-xs">
-
-        <a href="#/developer"
-           class="btn btn-default btn-transparent pull-left">
+        <a href="#/developer">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-
+    </div>
+    <div class="navbar-header hidden-xs pull-left">
         <a class="navbar-brand">Websites</a>
 
     </div>
 
     <div class="hidden-xs landscape-right">
-        <a class="navbar-brand">Edit Webite</a>
+        <a class="navbar-brand">Edit Website</a>
 
         <a ng-click="model.updateWebsite (model.website)"
-           class="btn btn-default btn-transparent padding">
+           class="btn btn-default btn-transparent padding pull-right">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
+    </div>
     </div>
 
     <!--Only visible in extra small devices-->
@@ -35,7 +36,7 @@
         <a class="navbar-brand">Edit Website</a>
 
         <a ng-click="model.updateWebsite (model.website)"
-           class="btn btn-default btn-transparent padding">
+           class="btn btn-default btn-transparent padding pull-right">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>

@@ -3,39 +3,50 @@
 <nav class="navbar navbar-default navbar-fixed-top jga">
 
     <!--Hidden in extra small devices-->
+    <div class="container-fluid">
 
-    <div class="navbar-header hidden-xs">
+        <div class="navbar-text pull-left" style="margin-left: 0px">
 
-        <a href="#/developer"
-           class="btn btn-default btn-transparent pull-left">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
+           <a href="#/developer" class="btn-transparent">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </div>
 
-        <a class="navbar-brand">Websites</a>
+        <div class="nav-sidebar col-sm-4 hidden-xs">
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand">Websites</a>
+            </div>
+            <div class="sidebar-plus navbar-text pull-right">
+                <a href="#/developer/{{model.developerId}}/website/new">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </div>
 
-        <a href="#/developer/{{model.developerId}}/website/new"
-           class="btn btn-default btn-transparent">
-            <span class="glyphicon glyphicon-plus"></span>
-        </a>
+        <div class="col-sm-5">
+            <div class="navbar-header pull-left">
 
-    </div>
+        <a class="navbar-brand">New Website</a>
+                </div>
+        </div>
 
-    <div class="hidden-xs landscape-right">
-        <a class="navbar-brand">New Webite</a>
 
+
+        <div class="navbar-text pull-right">
         <button form="websiteForm"
                 type="submit"
                 ng-click="model.createWebsite (model.website)"
-                class="btn btn-default btn-transparent padding">
+                class="btn-transparent navbar-link">
             <span class="glyphicon glyphicon-ok"></span>
         </button>
+        </div>
     </div>
+</nav>
 
     <!--Only visible in extra small devices-->
-
+<!--
     <div class="visible-xs">
-        <a href="#/developer/{{currentUser._id}}/website"
-           class="btn btn-default btn-transparent pull-left padding">
+        <a href="#/developer/{{currentUser._id}}/website">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
 
@@ -43,38 +54,40 @@
 
         <button form="websiteForm"
                 type="submit"
-                ng-click="model.createWebsite (model.website)"
-                class="btn btn-default btn-transparent padding">
+                ng-click="model.createWebsite (model.website)">
             <span class="glyphicon glyphicon-ok"></span>
         </button>
     </div>
-</nav>
+</nav>-->
 
 <div class="row">
     <!--Hidden in extra small devices-->
-    <div class="col-sm-4  hidden-xs">
-        <div ng-if="model.error"
-             class="alert alert-danger"
-             role="alert">
-            {{model.error}}
-        </div>
+    <div class="container-fluid">
+        <div class="col-sm-4  hidden-xs">
 
-        <div ng-repeat="website in model.websites" ng-show="model.viewType == 'list'"
-             class="row jga-bg-highlight-on-hover" style="padding: 8px">
-            <div class="col-xs-10">
-                <a href="#/developer/{{model.developerId}}/website/{{website._id}}/page">
-                    {{website.name}}
-                </a>
+            <div ng-if="model.error"
+                 class="alert alert-danger"
+                 role="alert">
+                {{model.error}}
             </div>
-            <!--<a href="#/developer/{{model.developerId}}/website/{{website._id}}/page/{{website.pages[0]._id}}/run"-->
-            <!--class="pull-right">-->
-            <!--<span class="glyphicon glyphicon-play"></span>-->
-            <!--</a>-->
-            <div class="customPadding col-xs-1">
-                <a href="#/developer/{{model.developerId}}/website/{{website._id}}"
-                   class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
+
+            <div ng-repeat="website in model.websites" ng-show="model.viewType == 'list'"
+                 class="row jga-bg-highlight-on-hover" style="padding: 8px">
+                <div class="col-xs-10 pull-left">
+                    <a href="#/developer/{{model.developerId}}/website/{{website._id}}/page">
+                        {{website.name}}
+                    </a>
+                </div>
+                <!--<a href="#/developer/{{model.developerId}}/website/{{website._id}}/page/{{website.pages[0]._id}}/run"-->
+                <!--class="pull-right">-->
+                <!--<span class="glyphicon glyphicon-play"></span>-->
+                <!--</a>-->
+                <div class="customPadding col-xs-1">
+                    <a href="#/developer/{{model.developerId}}/website/{{website._id}}"
+                       class="pull-right">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -119,10 +132,10 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-    <textarea ng-model="model.website.description"
-              rows="5" id="description"
-              class="form-control"
-              placeholder="Description"></textarea>
+                <textarea ng-model="model.website.description"
+                          rows="5" id="description"
+                          class="form-control"
+                          placeholder="Description"></textarea>
             </div>
 
         </form>
