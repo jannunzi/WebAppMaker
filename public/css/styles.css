@@ -56,6 +56,7 @@ a {
 body {
     padding-top: 60px;
     padding-bottom: 60px;
+    overflow-x: hidden;
 }
 
 .navbar-default .navbar-toggle {
