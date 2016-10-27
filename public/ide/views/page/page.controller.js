@@ -348,9 +348,14 @@
         vm.developerId = $routeParams.developerId;
         vm.websiteId = $routeParams.websiteId;
         vm.viewType = 'list';
+        vm.sortBy = 'name';
+        vm.reverse = false;
 
         vm.sortPage      = sortPage;
         vm.toggleView    = toggleView;
+        vm.setSortReverse = setSortReverse;
+        vm.setSortBy = setSortBy;
+        vm.sortList = sortList;
 
         function init() {
             WebsiteService
@@ -390,6 +395,19 @@
         
         function toggleView() {
             vm.viewType = vm.viewType === 'list' ? 'grid' : 'list';
+        }
+
+        function setSortReverse(reverse) {
+            vm.reverse = reverse;
+        }
+
+        function setSortBy(by) {
+            vm.sortBy = by;
+        }
+
+        function sortList(by, reverse) {
+            vm.sortBy = by;
+            vm.reverse = reverse;
         }
     }
 

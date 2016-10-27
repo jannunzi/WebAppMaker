@@ -12,7 +12,7 @@
         var vm = this;
         vm.username = $routeParams.username;
         vm.websiteId = $routeParams.websiteId;
-        
+
         vm.shareWebsite = shareWebsite;
         vm.unshareWebsite = unshareWebsite;
 
@@ -173,11 +173,19 @@
         function toggleView() {
             vm.viewType = vm.viewType === 'list' ? 'grid' : 'list';
         }
-		
-		vm.sortList = function(by, reverse){				
-			vm.sortBy = by;
-			vm.reverse = reverse;
-		}
+
+        vm.setSortReverse = function (reverse) {
+            vm.reverse = reverse;
+        }
+
+        vm.setSortBy = function (by) {
+            vm.sortBy = by;
+        }
+
+        vm.sortList = function (by, reverse) {
+            vm.sortBy = by;
+            vm.reverse = reverse;
+        }
     }
 
     function newWebsiteController (

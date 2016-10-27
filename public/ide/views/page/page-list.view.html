@@ -1,19 +1,22 @@
 <nav class="navbar navbar-default navbar-fixed-top jga">
-    <div class="navbar-header">
+    <div class="navbar-header pull-left">
 
         <a href="#/developer/{{currentUser._id}}/website"
            class="btn btn-default btn-transparent pull-left">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-
+        </div>
+        <div class="navbar-header pull-left">
         <a class="navbar-brand">{{model.website.name}} - Pages</a>
-
+        </div>
+        <p class="navbar-text pull-right">
         <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/page/new"
-           class="btn btn-default btn-transparent pull-right">
+           >
             <span class="glyphicon glyphicon-plus"></span>
         </a>
+        </p>
 
-    </div>
+
 </nav>
 
 <div ng-if="model.error"
@@ -24,7 +27,7 @@
 
 <div jga-sortable
      jga-sortable-callback="model.sortPage(start, end)">
-    <div ng-repeat="page in model.pages" ng-show="model.viewType == 'list'"
+    <div ng-repeat="page in model.pages | orderBy : model.sortBy : model.reverse" ng-show="model.viewType == 'list'"
          class="row jga-bg-highlight-on-hover" style="padding: 8px">
         <div class="col-xs-10">
             <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
@@ -41,7 +44,7 @@
 
     <div ng-show="model.viewType == 'grid'">
         <div class="row">
-            <div class="col-sm-6 col-md-4" ng-repeat="page in model.pages">
+            <div class="col-sm-6 col-md-4" ng-repeat="page in model.pages | orderBy : model.sortBy : model.reverse">
                 <div class="thumbnail">
                     <img src="" alt="...">
                     <div class="caption">
@@ -71,9 +74,26 @@
             <span class="glyphicon glyphicon-th-list" ng-show="model.viewType == 'grid'"></span>
         </a>
 
+        <span class="dropup" id="sort-options">
+			<button class="btn btn-default dropdown-toggle" id="sort-button" type="button" data-toggle="dropdown">
+				<span class="glyphicon glyphicon-sort"></span>
+			</button>
+			<ul class="dropdown-menu">
+                <li><a ng-click="model.setSortReverse(false)" style="color: black">Sort ascending<span ng-if="model.reverse == false" class="glyphicon glyphicon-ok pull-right"></span></a></li>
+                <li><a ng-click="model.setSortReverse(true)" style="color: black">Sort descending<span ng-if="model.reverse == true" class="glyphicon glyphicon-ok pull-right"></span></a></li>
+                <li role="separator" class="divider"></li>
+                <li><a ng-click="model.setSortBy('name')" style="color: black">Sort by name<span ng-if="model.sortBy == 'name'" class="glyphicon glyphicon-ok pull-right"></span></a></li>
+                <li><a ng-click="model.setSortBy('dateModified')" style="color: black">Sort by date modified<span ng-if="model.sortBy == 'dateModified'" class="glyphicon glyphicon-ok pull-right"></span></a></li>
+			</ul>
+		</span>
+
         <a href="#/developer/{{currentUser.username}}/edit"
            class="navbar-toggle collapsed">
             <span class="glyphicon glyphicon-user"></span>
+        </a>
+
+        <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/flow">
+            <span class="glyphicon glyphicon-random"></span>
         </a>
     </div>
 </nav>

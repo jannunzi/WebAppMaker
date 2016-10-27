@@ -1,19 +1,23 @@
 <nav class="navbar navbar-default navbar-fixed-top jga">
-    <div class="navbar-header">
 
-        <a href="#/developer"
-           class="btn btn-default btn-transparent pull-left">
+    <div class="navbar-text pull-left">
+
+        <a href="#/developer">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-
+</div>
+    <div class="navbar-header pull-left">
         <a class="navbar-brand">Websites</a>
+    </div>
 
+    <p class="navbar-text pull-right">
         <a href="#/developer/{{model.developerId}}/website/new"
-                class="btn btn-default btn-transparent pull-right">
+                >
             <span class="glyphicon glyphicon-plus"></span>
         </a>
+    </p>
 
-    </div>
+
 </nav>
 
 <!--check error-->
@@ -82,24 +86,17 @@
            class="navbar-toggle collapsed">
             <span class="glyphicon glyphicon-user"></span>
         </a>
-		
-		<span class="dropup" id="sort-options">
+
+        <span class="dropup" id="sort-options">
 			<button class="btn btn-default dropdown-toggle" id="sort-button" type="button" data-toggle="dropdown">
-				<span class="glyphicon glyphicon-chevron-up"></span>
-				<div id="sort-button-text">AZ</div>
-				<span class="glyphicon glyphicon-chevron-down"></span>
+				<span class="glyphicon glyphicon-sort"></span>
 			</button>
 			<ul class="dropdown-menu">
-				<li>
-					<span id="list-label" ng-click="$event.stopPropagation()" id="list-option-text">Last Modified</span>
-					<span id="list-icon" class="glyphicon glyphicon-sort-by-attributes-alt" ng-click="model.sortList('dateModified', true)"/>
-					<span id="list-icon" class="glyphicon glyphicon-sort-by-attributes" ng-click="model.sortList('dateModified', false)"/>
-				</li>
-				<li>
-					<span id="list-label" ng-click="$event.stopPropagation()">Name</span>
-					<span id="list-icon" class="glyphicon glyphicon-sort-by-alphabet-alt" ng-click="model.sortList('name', true)"/>
-					<span id="list-icon" class="glyphicon glyphicon-sort-by-alphabet" ng-click="model.sortList('name', false)"/>
-				</li>
+                <li><a ng-click="model.setSortReverse(false)" style="color: black">Sort ascending<span ng-if="model.reverse == false" class="glyphicon glyphicon-ok pull-right"></span></a></li>
+                <li><a ng-click="model.setSortReverse(true)" style="color: black">Sort descending<span ng-if="model.reverse == true" class="glyphicon glyphicon-ok pull-right"></span></a></li>
+                <li role="separator" class="divider"></li>
+                <li><a ng-click="model.setSortBy('name')" style="color: black">Sort by name<span ng-if="model.sortBy == 'name'" class="glyphicon glyphicon-ok pull-right"></span></a></li>
+                <li><a ng-click="model.setSortBy('dateModified')" style="color: black">Sort by date modified<span ng-if="model.sortBy == 'dateModified'" class="glyphicon glyphicon-ok pull-right"></span></a></li>
 			</ul>
 		</span>
     </div>
