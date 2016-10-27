@@ -1,89 +1,69 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="row container-fluid">
-        <div class="col-sm-4 hidden-xs">
-            <div class="navbar-text pull-left" style="margin-left: 0px">
-                <a href="#">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </div>
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    Left Header
-                </a>
-            </div>
-            <div class="navbar-text pull-right" style="margin-right: 27px;">
-                <a href="#">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-8">
-            <div class="navbar-text pull-left" style="margin-left: 0px">
-                <a href="#">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </div>
-            <div class="navbar-text pull-right" style="margin-right: 0px;">
-                <a href="#">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </div>
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    Right Header
-                </a>
-            </div>
-        </div>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/metro/3.0.15/css/metro-icons.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top jga">
+    <div class="container-fluid">
+    <div class="navbar-header pull-left">
+
+        <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/page"
+           class="btn btn-default btn-transparent pull-left">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
     </div>
+        <div class="nav-sidebar col-sm-3 hidden-xs">
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand"> My Site- Page {{model.website.name}} </a>
+            </div>
+
+    <div class="navbar-text pull-right">
+        <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/page/new">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
+    </div>
+        </div>
+
+        <div class="col-sm-5">
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand">
+                    FlowChart
+                </a>
+            </div>
+        </div>
+</div>
 </nav>
 
-<div class="row container-fluid">
+<div ng-if="model.error"
+     class="alert alert-danger"
+     role="alert">
+    {{model.error}}
+</div>
+
+<div class="container-fluid">
     <!--<div class="col-sm-4 hidden-xs" style="margin-left:15px; margin-top: 50px; padding-top: 15px; margin-bottom: 50px; position: absolute;top: 0px;bottom: 0px;overflow: auto;z-index: 2;">-->
-    <div class="col-sm-2 hidden-xs"  style="position:absolute; top:0px; left:0px; bottom: 0px;z-index: 2;border-right: 1px solid gray;">
+    <div class="col-sm-3 hidden-xs"  style="position:absolute; top:0px; left:0px; bottom: 0px;z-index: 2;border-right: 1px solid gray;">
         <h2>Tools</h2>
         <h3 jga-draggable class="tool page">Page</h3>
         <h3 jga-draggable class="tool action">Action</h3>
         <h3 jga-draggable class="tool conditional">Conditional</h3>
     </div>
     <!--<div jga-droppable class="col-sm-8 pull-right" style="padding-left: 30px;padding-right: 0px;">-->
-    <div jga-droppable class="col-sm-10 pull-right" style="overflow: hidden;position:absolute; bottom: 0px; top: 0px; right: 0px;">
+    <div jga-droppable class="col-sm-9 pull-right" style="overflow: hidden;position:absolute; bottom: 0px; top: 0px; right: 0px;">
         <h2>Canvas</h2>
     </div>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="row navbar-text" style="width: 100%; text-align: center;">
-            <div class="col-xs-2">
-                <a href="#">
-                    <span class="glyphicon glyphicon-heart"></span>
-                </a>
-            </div>
-            <div class="col-xs-2">
-                <a href="#">
-                    <span class="glyphicon glyphicon-star"></span>
-                </a>
-            </div>
-            <div class="col-xs-2">
-                <a href="#">
-                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                </a>
-            </div>
-            <div class="col-xs-2">
-                <a href="#">
-                    <span class="glyphicon glyphicon-trash"></span>
-                </a>
-            </div>
-            <div class="col-xs-2">
-                <a href="#">
-                    <span class="glyphicon glyphicon-share-alt"></span>
-                </a>
-            </div>
-            <div class="col-xs-2">
-                <a href="#" class="pull-right">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
-            </div>
-        </div>
+<nav class="navbar navbar-default navbar-fixed-bottom jga">
+    <div class="navbar-header">
+        <a ng-click="model.toggleView()"
+           class="btn btn-default btn-transparent pull-left">
+            <span class="glyphicon glyphicon-th" ng-show="model.viewType == 'list'"></span>
+            <span class="glyphicon glyphicon-th-list" ng-show="model.viewType == 'grid'"></span>
+        </a>
+
+
+
+
     </div>
 </nav>
+</body>

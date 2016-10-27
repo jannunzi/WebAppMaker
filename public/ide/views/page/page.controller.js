@@ -53,7 +53,7 @@
                             if(vm.widgets[w].widgetType=="DATATABLE" || vm.widgets[w].widgetType=="REPEATER" ) {
                                 vm.collectionName = vm.widgets[w].widgetType=="DATATABLE" ? vm.widgets[w].datatable.collectionName : vm.widgets[w].repeater.collectionName;
                                 DatabaseService
-                                    // had to rename 'collection' to 'collectionName' on the schema
+                                // had to rename 'collection' to 'collectionName' on the schema
                                     .select($rootScope.currentUser.username, vm.website.name, vm.collectionName)
                                     .then(
                                         function (response) {
