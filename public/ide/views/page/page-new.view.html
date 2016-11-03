@@ -3,34 +3,40 @@
 <nav class="navbar navbar-default navbar-fixed-top jga">
 
     <!--Hidden in extra small device-->
+    <div class="container-fluid">
+    <div class="navbar-text pull-left" style="margin-left: 0px">
 
-    <div class="navbar-header hidden-xs">
-
-        <a href="#/developer/{{currentUser._id}}/website"
-           class="btn btn-default btn-transparent pull-left">
+        <a href="#/developer/{{currentUser._id}}/website">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-
+    </div>
+        <div class="nav-sidebar col-sm-4 hidden-xs">
+            <div class="navbar-header pull-left">
         <a class="navbar-brand">{{model.website.name}} - Pages</a>
-
-        <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/page/new"
-           class="btn btn-default btn-transparent">
+            </div>
+        <div class="sidebar-plus navbar-text pull-right">
+        <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/page/new">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
-
+        </div>
     </div>
 
-    <div class="hidden-xs landscape-right">
+    <div class="col-sm-5">
+        <div class="navbar-header pull-left">
         <a class="navbar-brand">New Page</a>
-
+</div>
+        </div>
+        <div class="navbar-text pull-right">
         <a ng-click="model.createPage (model.page)"
-           class="btn btn-default btn-transparent padding">
+           class="navbar-link">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>
+        </div>
+    </nav>
 
     <!--Only visible in extra small devices-->
-
+<!--
     <div class="visible-xs">
         <a href="#/developer/{{currentUser._id}}/website/{{model.websiteId}}/page"
            class="btn btn-default btn-transparent pull-left padding">
@@ -45,7 +51,7 @@
         </a>
     </div>
 </nav>
-
+-->
 
 
 <div class="row">
