@@ -105,6 +105,14 @@
                 controllerAs: "model",
                 resolve: { loggedin: checkLoggedin }
             })
+
+            .when ("/developer/:developerId/website/:websiteId/flow/123/page/new", {
+                templateUrl: "views/flow/page/page-new.view.html",
+                controller: "FlowController",
+                controllerAs: "model",
+                resolve: { loggedin: checkLoggedin }
+            })
+
             .when ("/developer/:developerId/website/:websiteId/page/new", {
                 templateUrl: "views/page/page-new.view.html",
                 controller: "NewPageController",

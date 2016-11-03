@@ -14,20 +14,30 @@
         }
         return {
             restrict: 'EA',
-            link: link
+            link: link,
+            controller: 'FlowController'
         };
     }
 
     function jgaDroppable(FlowDiagramService) {
-        var pageHtml = "<h3 class='node'>Page</h3>";
+        var pageHtml;
         var actionHtml = "<h3 class='node'>Action</h3>";
         var conditionalHtml = "<h3 class='node'>Conditional</h3>";
         function link(scope, element, attributes) {
+
+            var model123 = scope.model,
+                developerId = model123.developerId,
+                websiteId = model123.websiteId,
+                url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/new';
+
+            pageHtml = "<h3 class='node'><a href=" + url + "><span class='glyphicon glyphicon-plus'></span></a></h3>";
+
             console.log("jgaDroppable");
             console.log([scope, element, attributes]);
             var canvas = element;
             canvas.droppable({
                 drop: function(qq, ww){
+                    console.log(model123);
                     console.log("dropped");
                     // var newNode = {type: 'PAGE'};
                     // FlowDiagramService.addNode(newNode);
@@ -50,9 +60,11 @@
                     }
                     FlowDiagramService.addNode(node);
                     renderDiagram(canvas);
+
                 }
             });
         }
+
         function renderDiagram(canvas) {
             var diagram = FlowDiagramService.getDiagram();
             canvas.empty();
@@ -88,7 +100,8 @@
         }
         return {
             restrict: 'EA',
-            link: link
+            link: link,
+            controller: 'FlowController'
         };
     }
 })();
