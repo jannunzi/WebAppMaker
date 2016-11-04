@@ -292,3 +292,20 @@ th {
     left:35.33%;
     right:64.66%;
 }
+
+.right-scroll{
+    padding-top: 15px;
+    margin-bottom: 50px;
+    top: 0px;bottom: 0px;
+    position: relative;
+    height: calc(100vh - 100px);
+    overflow: auto;
+}
+
+.thumbnail, .thumbnail>img, .img-responsive{
+    width: 60%;
+    height: 60%;
+    max-width: 60%;
+    max-height: 60%;
+}
+
