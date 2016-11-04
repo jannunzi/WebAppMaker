@@ -49,7 +49,15 @@
     </div>
     <!--<div jga-droppable class="col-sm-8 pull-right" style="padding-left: 30px;padding-right: 0px;">-->
     <div jga-droppable class="col-sm-9 pull-right" style="overflow: hidden;position:absolute; bottom: 0px; top: 0px; right: 0px;">
-        <h2>Canvas</h2>
+        <div jga-draggable ng-repeat="node in model.diagram.nodes"
+             style="position: absolute; top:{{node.y}}px; left:{{node.x}}px"
+             class="panel panel-primary">
+            <div class="panel-heading">{{node.name}}</div>
+            <div class="panel-body">
+                {{node}}
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -60,10 +68,6 @@
             <span class="glyphicon glyphicon-th" ng-show="model.viewType == 'list'"></span>
             <span class="glyphicon glyphicon-th-list" ng-show="model.viewType == 'grid'"></span>
         </a>
-
-
-
-
     </div>
 </nav>
 </body>
