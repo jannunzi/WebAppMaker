@@ -61,15 +61,16 @@
     </div>
     <!--<div jga-droppable class="col-sm-8 pull-right" style="padding-left: 30px;padding-right: 0px;">-->
     <div jga-droppable class="col-sm-9 pull-right" style="overflow: hidden;position:absolute; bottom: 0px; top: 0px; right: 0px;">
-        <div jga-draggable ng-repeat="node in model.diagram.nodes"
+        <div ng-repeat="node in model.diagram.nodes"
              style="position: absolute; top:{{node.y}}px; left:{{node.x}}px"
              class="panel panel-primary">
             <div class="panel-heading">{{node.name}}</div>
             <div class="panel-body">
-                {{node}}
+                <img ng-src="images/document1.png" ng-if="node.type === 'PAGE'"/>
+                <img ng-src="images/action1.png" ng-if="node.type === 'ACTION'"/>
+                <img ng-src="images/decision1.png" ng-if="node.type === 'CONDITIONAL'"/>
             </div>
         </div>
-
     </div>
 </div>
 

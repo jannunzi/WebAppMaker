@@ -4,9 +4,9 @@ module.exports = function(app) {
     var diagram = {
         nodes: [
             {_id: 123, x: 100, y: 100, type: 'PAGE', name: 'Page 1'},
-            {_id: 223, x: 200, y: 200, type: 'PAGE', name: 'Page 2'},
+            {_id: 223, x: 200, y: 200, type: 'ACTION', name: 'Page 2'},
             {_id: 323, x: 300, y: 300, type: 'PAGE', name: 'Page 3'},
-            {_id: 423, x: 400, y: 400, type: 'PAGE', name: 'Page 4'},
+            {_id: 423, x: 400, y: 400, type: 'CONDITIONAL', name: 'Page 4'},
             {_id: 523, x: 500, y: 500, type: 'PAGE', name: 'Page 5'}
         ],
         connections: [
