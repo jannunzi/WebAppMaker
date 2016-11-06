@@ -107,8 +107,8 @@
             })
 
             .when ("/developer/:developerId/website/:websiteId/flow/123/page/new", {
-                templateUrl: "views/flow/page/page-new.view.html",
-                controller: "FlowController",
+                templateUrl: "views/page/page-new.view.html",
+                controller: "NewPageController",
                 controllerAs: "model",
                 resolve: { loggedin: checkLoggedin }
             })
