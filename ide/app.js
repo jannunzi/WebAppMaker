@@ -2,6 +2,7 @@ module.exports = function (app, db) {
 
     var model = require("./models/model.js")();
 
+    var flowDiagramService = require("./services/flow.service.server")(app, model);
     var developerService   = require("./services/developer.service.server.js")  (app, model);
     var websiteService = require("./services/website.service.server.js")(app, model);
     var pageService        = require("./services/page.service.server.js")       (app, model);
