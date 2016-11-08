@@ -106,9 +106,9 @@
                 resolve: { loggedin: checkLoggedin }
             })
 
-            .when ("/developer/:developerId/website/:websiteId/flow/123/page/new", {
-                templateUrl: "views/page/page-new.view.html",
-                controller: "NewPageController",
+            .when ("/developer/:developerId/website/:websiteId/flow/123/page/:pageId", {
+                templateUrl: "views/page/page-edit.view.html",
+                controller: "EditPageController",
                 controllerAs: "model",
                 resolve: { loggedin: checkLoggedin }
             })
