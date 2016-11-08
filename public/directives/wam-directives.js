@@ -5,6 +5,8 @@
         .directive("jgaDraggable", jgaDraggable)
         .directive("jgaDroppable", jgaDroppable);
 
+    var websiteId;
+
     function jgaDraggable() {
         function link(scope, element, attributes) {
             console.log("jgaDraggable");
@@ -35,9 +37,10 @@
 
             var model123 = scope.model,
                 developerId = model123.developerId,
-                websiteId = model123.websiteId,
                 pageId = model123.pageId,
                 url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ pageId;
+
+            websiteId = model123.websiteId;
 
             pageHtml = "<h3 class='node'><a href=" + url + "><span class='glyphicon glyphicon-plus'></span></a></h3>";
 
@@ -45,46 +48,67 @@
             console.log("jgaDroppable");
             console.log([scope, element, attributes]);
             var canvas = element;
+            renderDiagram(canvas);
             canvas.droppable({
                 drop: function(qq, ww){
                     console.log(model123);
                     console.log("dropped");
                     // createdefaultPage(websiteId, newPage);
                     console.log(PageService);
-                    PageService.createPage(websiteId,newPage)
+
+                    var helper = $(ww.helper);
+                    var position = helper.position();
+                    position.left -= canvas.position().left;
+                    newPage.x = position.left;
+                    newPage.y = position.top;
+                    PageService.createPage(websiteId, newPage)
                         .then(function(page){
                             console.log(page);
                             url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ page.data._id;
                             pageHtml = "<h3 class='node'><a href=" + url + "><span class='glyphicon glyphicon-plus'></span></a></h3>";
+
+                            // var newNode = {type: 'PAGE'};
+                            // FlowDiagramService.addNode(newNode);
+                            // console.log(FlowDiagramService.getDiagram());
+                            var helper = $(ww.helper);
+                            var position = helper.position();
+                            position.left -= canvas.position().left;
+                            var node = {
+                                position: position,
+                                _id: (new Date()).getTime()
+                            };
+                            if (helper.hasClass('page')) {
+                                node.type = 'PAGE';
+                            } else if (helper.hasClass('action')) {
+                                node.type = 'ACTION';
+                            } else if (helper.hasClass('conditional')) {
+                                node.type = 'CONDITIONAL';
+                            } else {
+                                return;
+                            }
+                            FlowDiagramService.addNode(node);
+                            renderDiagram(canvas);
                         });
-
-                    // var newNode = {type: 'PAGE'};
-                    // FlowDiagramService.addNode(newNode);
-                    // console.log(FlowDiagramService.getDiagram());
-                    var helper = $(ww.helper);
-                    var position = helper.position();
-                    position.left -= canvas.position().left;
-                    var node = {
-                        position: position,
-                        _id: (new Date()).getTime()
-                    };
-                    if (helper.hasClass('page')) {
-                        node.type = 'PAGE';
-                    } else if (helper.hasClass('action')) {
-                        node.type = 'ACTION';
-                    } else if (helper.hasClass('conditional')) {
-                        node.type = 'CONDITIONAL';
-                    } else {
-                        return;
-                    }
-                    FlowDiagramService.addNode(node);
-                    renderDiagram(canvas);
-
                 }
             });
         }
 
         function renderDiagram(canvas) {
+
+            PageService
+                .findPagesForWebsite(websiteId)
+                .success(function(pages){
+                    for(var p in pages) {
+                        $(pageHtml)
+                            .css({
+                                position: 'absolute',
+                                top: pages[p].y,
+                                left: pages[p].x
+                            })
+                            .appendTo(canvas);
+                    }
+                });
+
             var diagram = FlowDiagramService.getDiagram();
             canvas.empty();
             for(var d in diagram) {
