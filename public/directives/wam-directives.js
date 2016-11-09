@@ -3,7 +3,8 @@
         .module("wamDirectives", [])
         .directive("wamFilter", wamFilter)
         .directive("jgaDraggable", jgaDraggable)
-        .directive("jgaDroppable", jgaDroppable);
+        .directive("jgaDroppable", jgaDroppable)
+        .directive("jgaSortable", jgaSortable);
 
     var websiteId;
 
@@ -108,38 +109,38 @@
                             .appendTo(canvas);
                     }
                 });
-
-            var diagram = FlowDiagramService.getDiagram();
-            canvas.empty();
-            for(var d in diagram) {
-                var node = diagram[d];
-                var newNode = {};
-                if(node.type === 'PAGE') {
-                    newNode = $(pageHtml);
-                } else if(node.type === 'ACTION') {
-                    newNode = $(actionHtml);
-                } else if(node.type === 'CONDITIONAL') {
-                    newNode = $(conditionalHtml);
-                }
-                newNode.css({
-                    "position": "absolute",
-                    "top": node.position.top,
-                    "left": node.position.left,
-                }).draggable({
-                    containment: "parent",
-                    stop: function(event, ui){
-                        var id = ui.helper.attr("id");
-                        for(var d in diagram) {
-                            var node = diagram[d];
-                            if(node._id == id) {
-                                node.position.left = ui.position.left;
-                                node.position.top = ui.position.top;
-                            }
-                        }
-                    }
-                }).attr("id", node._id);
-                canvas.append(newNode);
-            }
+            //
+            // var diagram = FlowDiagramService.getFlowDiagram();
+            // canvas.empty();
+            // for(var d in diagram) {
+            //     var node = diagram[d];
+            //     var newNode = {};
+            //     if(node.type === 'PAGE') {
+            //         newNode = $(pageHtml);
+            //     } else if(node.type === 'ACTION') {
+            //         newNode = $(actionHtml);
+            //     } else if(node.type === 'CONDITIONAL') {
+            //         newNode = $(conditionalHtml);
+            //     }
+            //     newNode.css({
+            //         "position": "absolute",
+            //         "top": node.position.top,
+            //         "left": node.position.left,
+            //     }).draggable({
+            //         containment: "parent",
+            //         stop: function(event, ui){
+            //             var id = ui.helper.attr("id");
+            //             for(var d in diagram) {
+            //                 var node = diagram[d];
+            //                 if(node._id == id) {
+            //                     node.position.left = ui.position.left;
+            //                     node.position.top = ui.position.top;
+            //                 }
+            //             }
+            //         }
+            //     }).attr("id", node._id);
+            //     canvas.append(newNode);
+            // }
         }
         return {
             restrict: 'EA',
@@ -166,5 +167,33 @@
                 variables: '='
             }
         }
+    }
+
+    function jgaSortable() {
+        function link(scope, element, attrs) {
+            var start = null;
+            var end   = null;
+            $(element)
+                .sortable({
+                    sort: function(event, ui) {
+                        //ui.helper.find("a").hide();
+                        start = ui.item.index();
+                    },
+                    stop: function(event, ui) {
+                        //ui.item.find("a").show();
+                        end = ui.item.index();
+                        if(start >= end) {
+                            start--;
+                        }
+                        scope.jgaSortableCallback({start: start, end: end});
+                    }
+                });
+        }
+        return {
+            scope: {
+                jgaSortableCallback: '&'
+            },
+            link: link
+        };
     }
 })();
