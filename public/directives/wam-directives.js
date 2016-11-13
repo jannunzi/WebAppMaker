@@ -43,7 +43,7 @@
 
             websiteId = model123.websiteId;
 
-            pageHtml = "<h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3>";
+            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel</div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3></div></div>";
 
             var newPage = {name : "New Page", title : "default"};
             console.log("jgaDroppable");
