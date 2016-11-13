@@ -43,7 +43,7 @@
 
             websiteId = model123.websiteId;
 
-            pageHtml = "<h3 class='node'><a href=" + url + "><span class='glyphicon glyphicon-plus'></span></a></h3>";
+            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel</div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3></div></div>";
 
             var newPage = {name : "New Page", title : "default"};
             console.log("jgaDroppable");
@@ -66,7 +66,7 @@
                         .then(function(page){
                             console.log(page);
                             url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ page.data._id;
-                            pageHtml = "<h3 class='node'><a href=" + url + "><span class='glyphicon glyphicon-plus'></span></a></h3>";
+                            pageHtml = "<h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3>";
 
                             // var newNode = {type: 'PAGE'};
                             // FlowDiagramService.addNode(newNode);
