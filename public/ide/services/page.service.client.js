@@ -11,7 +11,8 @@
             findPageById: findPageById,
             removePage: removePage,
             updatePage: updatePage,
-            sortPage: sortPage
+            sortPage: sortPage,
+
         };
         return api;
 

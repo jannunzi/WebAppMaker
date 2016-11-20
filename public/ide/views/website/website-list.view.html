@@ -51,8 +51,8 @@
     <div ng-show="model.viewType == 'grid'">
         <div class="row">
             <div class="col-sm-6 col-md-4" ng-repeat="website in model.websites | orderBy : model.sortBy : model.reverse">
-                <div class="thumbnail">
-                    <img src="" alt="...">
+                <div class="img-thumbnail mx-auto">
+                    <img src="images/glyphicons-website.png" alt="...">
                     <div class="caption">
                         <p>
                             <a href="#/developer/{{model.developerId}}/website/{{website._id}}/page" class="pull-left">
