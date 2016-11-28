@@ -97,11 +97,12 @@
                        name="{{widget.name}}"
                        value="{{widget.text}}"
                        placeholder="{{widget.textInput.placeholder}}"
-                       class="form-control"/>
+                       class="form-control"
+                       ng-model="widget.text"/>
                 <textarea ng-if="widget.textInput.rows > 1 || widget.textInput.formatted"
                           name="{{widget.name}}"
                           rows="{{widget.textInput.rows}}"
-
+                          ng-model="widget.text"
                           placeholder="{{widget.textInput.placeholder}}"
                           class="form-control">{{widget.text}}</textarea>
             </div>
