@@ -174,8 +174,8 @@
                                         for(var i = 0 ; i < model.statements.length; ++i){
                                             var statement = model.statements[i];
                                             if("STRING" === statement.statementType){
+                                                var srtingStatement = statement.stringStatement;
                                                 if("SUBSTRING" === statement.stringStatement.operationType){
-                                                    var srtingStatement = statement.stringStatement;
                                                     var inputWidget;
                                                     var lengthWidget;
                                                     var outputWidget;
@@ -226,6 +226,34 @@
                                                         alert(outputString);
 
                                                     //alert(outputString);
+                                                }
+                                                else if("LENGTH" === statement.stringStatement.operationType){
+                                                    var inputWidget;
+                                                    var outputWidget;
+
+                                                    for(var j =0; j < vm.widgets.length; ++j){
+                                                        var widget = vm.widgets[j];
+                                                        if(widget.name === srtingStatement.input1){
+                                                            inputWidget = widget;
+                                                        }
+
+                                                        if(widget.name === srtingStatement.output){
+                                                            outputWidget = widget;
+                                                        }
+                                                    }
+
+                                                    var inputString;
+                                                    if(inputWidget)
+                                                        inputString = inputWidget.text;
+                                                    else
+                                                        inputString = statement.input1;
+
+                                                    var outputString = inputString.length;
+
+                                                    if(outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
                                                 }
                                             }
                                         }

@@ -11,6 +11,7 @@ module.exports = function() {
         output        : String,
         length        : String,
         start         : String,
+        end           : String,
         index         : String,
         searchvalue   : String,
         newvalue      : String,

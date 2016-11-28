@@ -49,9 +49,9 @@
     </div>
     <div ng-show="model.statement.stringStatement.start">
         <div class="form-group">
-            <label for="stringLength">Length</label>
+            <label for="stringLength">End</label>
             <div class="input-group">
-                <input ng-model="model.statement.stringStatement.length" type="text" class="form-control" id="stringLength">
+                <input ng-model="model.statement.stringStatement.end" type="text" class="form-control" id="stringLength">
                 <div class="input-group-btn">
                     <button type="button"
                             class="btn btn-default dropdown-toggle"
@@ -59,7 +59,7 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right wam-left">
-                        <li ng-repeat="widget in model.widgets" ng-click="model.statement.stringStatement.length = widget.name">
+                        <li ng-repeat="widget in model.widgets" ng-click="model.statement.stringStatement.end = widget.name">
                             <a>{{widget.name}}</a>
                         </li>
                     </ul>
