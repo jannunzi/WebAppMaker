@@ -72,7 +72,7 @@
         }
     }
 
-    function widgetListController ($routeParams, PageService, WidgetService, $sce) {
+    function widgetListController ($routeParams, PageService, WidgetService, ScriptService, StatementService, $sce) {
 
         var vm = this;
         vm.username       = $routeParams.username;
@@ -86,6 +86,7 @@
         vm.sortWidget     = sortWidget;
         vm.trustAsHtml    = trustAsHtml;
         vm.toggleView    = toggleView;
+        vm.runScript     = runScript;
 
         function init() {
             PageService
@@ -103,6 +104,7 @@
                     function(response) {
                         vm.widgets = response.data;
                         //console.log(vm.widgets);
+                        //runScript(vm.widgets[0]._id);
                     },
                     function(err) {
                         vm.error = err;
@@ -145,6 +147,99 @@
         
         function toggleView() {
             vm.viewType = vm.viewType === 'list' ? 'grid' : 'list';
+        }
+
+        function runScript(widgetId){
+            var model = Object.create(vm);
+            model.widgetId = widgetId;
+            ScriptService
+                .findScript(model)
+                .then(
+                    function(response) {
+                        model.script = response.data;
+                        console.log(model.script);
+                        if(!model.script || model.script == 'null') {
+                            model.script = {};
+                        }
+                        //AW: If script is present below action is executed
+                        else {
+                            model.scriptId = model.script._id;
+                            StatementService
+                                .findAllStatements(model)
+                                .then(
+                                    function (response) {
+                                        model.statements = response.data;
+                                        console.log(model.statements);
+
+                                        for(var i = 0 ; i < model.statements.length; ++i){
+                                            var statement = model.statements[i];
+                                            if("STRING" === statement.statementType){
+                                                if("SUBSTRING" === statement.stringStatement.operationType){
+                                                    var srtingStatement = statement.stringStatement;
+                                                    var inputWidget;
+                                                    var lengthWidget;
+                                                    var outputWidget;
+                                                    var startWidget;
+
+                                                    for(var j =0; j < vm.widgets.length; ++j){
+                                                        var widget = vm.widgets[j];
+                                                        if(widget.name === srtingStatement.input1){
+                                                            inputWidget = widget;
+                                                        }
+
+                                                        if(widget.name === srtingStatement.length){
+                                                            lengthWidget = widget;
+                                                        }
+
+                                                        if(widget.name === srtingStatement.output){
+                                                            outputWidget = widget;
+                                                        }
+
+                                                        if(widget.name === srtingStatement.start){
+                                                            startWidget = widget;
+                                                        }
+                                                    }
+
+                                                    var inputString;
+                                                    if(inputWidget)
+                                                        inputString = inputWidget.text;
+                                                    else
+                                                        inputString = statement.input1;
+
+                                                    var length;
+                                                    if(lengthWidget)
+                                                        length = lengthWidget.text;
+                                                    else
+                                                        length = statement.length;
+
+                                                    var startIndex;
+                                                    if(startWidget)
+                                                        startIndex = startWidget.text;
+                                                    else
+                                                        startIndex = statement.start;
+
+                                                    var outputString = inputString.substring(startIndex, length);
+
+                                                    if(outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+
+                                                    //alert(outputString);
+                                                }
+                                            }
+                                        }
+                                    },
+                                    function (err) {
+                                        vm.error = err;
+                                    }
+                                );
+                        }
+                    },
+                    function(err) {
+                        vm.error = err;
+                    }
+                );
         }
 
     }

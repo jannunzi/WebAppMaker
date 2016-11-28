@@ -95,19 +95,18 @@
             <div ng-switch-when="TEXT">
                 <input ng-if="!widget.textInput.formatted && (!widget.textInput.rows || widget.textInput.rows===1)"
                        name="{{widget.name}}"
-                       id="{{widget._id}}"
                        value="{{widget.text}}"
                        placeholder="{{widget.textInput.placeholder}}"
                        class="form-control"/>
                 <textarea ng-if="widget.textInput.rows > 1 || widget.textInput.formatted"
                           name="{{widget.name}}"
                           rows="{{widget.textInput.rows}}"
-                          id="{{widget._id}}"
+
                           placeholder="{{widget.textInput.placeholder}}"
                           class="form-control">{{widget.text}}</textarea>
             </div>
             <div ng-switch-when="BUTTON">
-                <a class="btn btn-block" ng-class="model.getButtonClass(widget.button.style)">
+                <a class="btn btn-block" ng-class="model.getButtonClass(widget.button.style)" ng-click="model.runScript(widget._id)">
                     {{widget.text}}
                 </a>
             </div>

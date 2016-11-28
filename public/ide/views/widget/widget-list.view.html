@@ -105,7 +105,7 @@
                           class="form-control">{{widget.text}}</textarea>
             </div>
             <div ng-switch-when="BUTTON">
-                <a class="btn btn-block" ng-class="model.getButtonClass(widget.button.style)">
+                <a class="btn btn-block" ng-class="model.getButtonClass(widget.button.style)" ng-click="model.runScript(widget._id)">
                     {{widget.text}}
                 </a>
             </div>
