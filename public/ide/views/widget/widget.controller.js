@@ -171,92 +171,725 @@
                                         model.statements = response.data;
                                         console.log(model.statements);
 
-                                        for(var i = 0 ; i < model.statements.length; ++i){
+                                        for(var i = 0 ; i < model.statements.length; ++i) {
                                             var statement = model.statements[i];
-                                            if("STRING" === statement.statementType){
+                                            if ("STRING" === statement.statementType) {
                                                 var srtingStatement = statement.stringStatement;
-                                                if("SUBSTRING" === statement.stringStatement.operationType){
+                                                if ("SUBSTRING" === statement.stringStatement.operationType) {
                                                     var inputWidget;
-                                                    var lengthWidget;
-                                                    var outputWidget;
                                                     var startWidget;
+                                                    var endWidget;
+                                                    var outputWidget;
 
-                                                    for(var j =0; j < vm.widgets.length; ++j){
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
                                                         var widget = vm.widgets[j];
-                                                        if(widget.name === srtingStatement.input1){
+                                                        if (widget.name === srtingStatement.input1) {
                                                             inputWidget = widget;
+                                                            continue;
                                                         }
 
-                                                        if(widget.name === srtingStatement.length){
-                                                            lengthWidget = widget;
-                                                        }
-
-                                                        if(widget.name === srtingStatement.output){
-                                                            outputWidget = widget;
-                                                        }
-
-                                                        if(widget.name === srtingStatement.start){
+                                                        if (widget.name === srtingStatement.start) {
                                                             startWidget = widget;
+                                                            continue;
                                                         }
+
+                                                        if (widget.name === srtingStatement.end) {
+                                                            endWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                            continue;
+                                                        }
+
+
                                                     }
 
                                                     var inputString;
-                                                    if(inputWidget)
+                                                    if (inputWidget)
                                                         inputString = inputWidget.text;
                                                     else
                                                         inputString = statement.input1;
 
-                                                    var length;
-                                                    if(lengthWidget)
-                                                        length = lengthWidget.text;
+                                                    var endString;
+                                                    if (endWidget)
+                                                        endString = endWidget.text;
                                                     else
-                                                        length = statement.length;
+                                                        endString = statement.length;
 
-                                                    var startIndex;
-                                                    if(startWidget)
-                                                        startIndex = startWidget.text;
+                                                    var startString;
+                                                    if (startWidget)
+                                                        startString = startWidget.text;
                                                     else
-                                                        startIndex = statement.start;
+                                                        startString = statement.start;
 
-                                                    var outputString = inputString.substring(startIndex, length);
+                                                    var outputString = inputString.substring(startString, endString);
 
-                                                    if(outputWidget)
+                                                    if (outputWidget)
                                                         outputWidget.text = outputString;
                                                     else
                                                         alert(outputString);
 
                                                     //alert(outputString);
                                                 }
-                                                else if("LENGTH" === statement.stringStatement.operationType){
+                                                else if ("LENGTH" === statement.stringStatement.operationType) {
                                                     var inputWidget;
                                                     var outputWidget;
 
-                                                    for(var j =0; j < vm.widgets.length; ++j){
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
                                                         var widget = vm.widgets[j];
-                                                        if(widget.name === srtingStatement.input1){
+                                                        if (widget.name === srtingStatement.input1) {
                                                             inputWidget = widget;
+                                                            continue;
                                                         }
 
-                                                        if(widget.name === srtingStatement.output){
+                                                        if (widget.name === srtingStatement.output) {
                                                             outputWidget = widget;
+                                                            continue;
                                                         }
                                                     }
 
                                                     var inputString;
-                                                    if(inputWidget)
+                                                    if (inputWidget)
                                                         inputString = inputWidget.text;
                                                     else
                                                         inputString = statement.input1;
 
                                                     var outputString = inputString.length;
 
-                                                    if(outputWidget)
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+                                                }
+                                                else if ("CONCATENATE" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var input2Widget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.input2) {
+                                                            input2Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var input2String;
+                                                    if (input2Widget)
+                                                        input2String = input2Widget.text;
+                                                    else
+                                                        input2String = statement.input2;
+
+                                                    var outputString = input1String.concat(input2String);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+                                                }
+                                                else if ("CHARAT" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var indexWidget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.index) {
+                                                            indexWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var indexString;
+                                                    if (indexWidget)
+                                                        indexString = indexWidget.text;
+                                                    else
+                                                        indexString = statement.index;
+
+                                                    var outputString = input1String.charAt(indexString);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+
+                                                }
+                                                else if ("INDEXOF" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var searchWidget;
+                                                    var startWidget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.searchvalue) {
+                                                            searchWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.start) {
+                                                            startWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var searchString;
+                                                    if (searchWidget)
+                                                        searchString = searchWidget.text;
+                                                    else
+                                                        searchString = statement.searchvalue;
+
+                                                    var startString;
+                                                    if (startWidget)
+                                                        startString = startWidget.text;
+                                                    else
+                                                        startString = statement.start;
+
+                                                    if ("" === startString)
+                                                        startString = 0;
+
+                                                    var outputString = input1String.indexOf(searchString, startString);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+                                                }
+                                                else if ("LASTINDEXOF" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var searchWidget;
+                                                    var startWidget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.searchvalue) {
+                                                            searchWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.start) {
+                                                            startWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var searchString;
+                                                    if (searchWidget)
+                                                        searchString = searchWidget.text;
+                                                    else
+                                                        searchString = statement.searchvalue;
+
+                                                    var startString;
+                                                    if (startWidget)
+                                                        startString = startWidget.text;
+                                                    else
+                                                        startString = statement.start;
+
+                                                    if ("" === startString)
+                                                        startString = input1String.length;
+
+                                                    var outputString = input1String.lastIndexOf(searchString, startString);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+                                                }
+                                                else if ("SEARCH" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var searchWidget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.searchvalue) {
+                                                            searchWidget = widget;
+                                                            continue;
+                                                        }
+
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var searchString;
+                                                    if (searchWidget)
+                                                        searchString = searchWidget.text;
+                                                    else
+                                                        searchString = statement.searchvalue;
+
+
+                                                    var outputString = input1String.search(searchString, startString);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+                                                }
+                                                else if ("REPEAT" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var countWidget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.count) {
+                                                            countWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var countString;
+                                                    if (countWidget)
+                                                        countString = countWidget.text;
+                                                    else
+                                                        countString = statement.index;
+
+                                                    var outputString = input1String.repeat(countString);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+
+                                                }
+                                                else if ("REPLACE" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var searchWidget;
+                                                    var newValueWidget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.searchvalue) {
+                                                            searchWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.newvalue) {
+                                                            newValueWidget = widget;
+                                                            continue;
+                                                        }
+
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var searchString;
+                                                    if (searchWidget)
+                                                        searchString = searchWidget.text;
+                                                    else
+                                                        searchString = statement.searchvalue;
+
+                                                    var newValueString;
+                                                    if (newValueWidget)
+                                                        newValueString = newValueWidget.text;
+                                                    else
+                                                        newValueString = statement.searchvalue;
+
+
+                                                    var outputString = input1String.replace(searchString, newValueString);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+                                                }
+                                                else if ("SLICE" === statement.stringStatement.operationType) {
+                                                    var inputWidget;
+                                                    var startWidget;
+                                                    var endWidget;
+                                                    var outputWidget;
+
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            inputWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.start) {
+                                                            startWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.end) {
+                                                            endWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                            continue;
+                                                        }
+
+
+                                                    }
+
+                                                    var inputString;
+                                                    if (inputWidget)
+                                                        inputString = inputWidget.text;
+                                                    else
+                                                        inputString = statement.input1;
+
+                                                    var endString;
+                                                    if (endWidget)
+                                                        endString = endWidget.text;
+                                                    else
+                                                        endString = statement.length;
+
+                                                    var startString;
+                                                    if (startWidget)
+                                                        startString = startWidget.text;
+                                                    else
+                                                        startString = statement.start;
+
+                                                    var outputString = inputString.slice(startString, endString);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+
+                                                    //alert(outputString);
+                                                }
+                                                else if ("LOWERCASE" === statement.stringStatement.operationType) {
+                                                    var inputWidget;
+                                                    var outputWidget;
+
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            inputWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                            continue;
+                                                        }
+
+
+                                                    }
+
+                                                    var inputString;
+                                                    if (inputWidget)
+                                                        inputString = inputWidget.text;
+                                                    else
+                                                        inputString = statement.input1;
+
+
+                                                    var outputString = inputString.toLowerCase();
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+
+                                                    //alert(outputString);
+                                                }
+                                                else if ("UPPERCASE" === statement.stringStatement.operationType) {
+                                                    var inputWidget;
+                                                    var outputWidget;
+
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            inputWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                            continue;
+                                                        }
+
+
+                                                    }
+
+                                                    var inputString;
+                                                    if (inputWidget)
+                                                        inputString = inputWidget.text;
+                                                    else
+                                                        inputString = statement.input1;
+
+
+                                                    var outputString = inputString.toUpperCase();
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+
+                                                    //alert(outputString);
+                                                }
+                                                else if ("TRIM" === statement.stringStatement.operationType) {
+                                                    var inputWidget;
+                                                    var outputWidget;
+
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            inputWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                            continue;
+                                                        }
+
+
+                                                    }
+
+                                                    var inputString;
+                                                    if (inputWidget)
+                                                        inputString = inputWidget.text;
+                                                    else
+                                                        inputString = statement.input1;
+
+
+                                                    var outputString = inputString.trim();
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+
+                                                    //alert(outputString);
+                                                }
+                                                else if ("STARTSWITH" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var searchWidget;
+                                                    var startWidget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.searchvalue) {
+                                                            searchWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.start) {
+                                                            startWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var searchString;
+                                                    if (searchWidget)
+                                                        searchString = searchWidget.text;
+                                                    else
+                                                        searchString = statement.searchvalue;
+
+                                                    var startString;
+                                                    if (startWidget)
+                                                        startString = startWidget.text;
+                                                    else
+                                                        startString = statement.start;
+
+                                                    if ("" === startString)
+                                                        startString = 0;
+
+                                                    var outputString = input1String.startsWith(searchString, startString);
+
+                                                    if (outputWidget)
+                                                        outputWidget.text = outputString;
+                                                    else
+                                                        alert(outputString);
+                                                }
+                                                else if ("ENDSWITH" === statement.stringStatement.operationType) {
+                                                    var input1Widget;
+                                                    var searchWidget;
+                                                    var lengthWidget;
+                                                    var outputWidget;
+
+                                                    for (var j = 0; j < vm.widgets.length; ++j) {
+                                                        var widget = vm.widgets[j];
+                                                        if (widget.name === srtingStatement.input1) {
+                                                            input1Widget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.searchvalue) {
+                                                            searchWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.length) {
+                                                            lengthWidget = widget;
+                                                            continue;
+                                                        }
+
+                                                        if (widget.name === srtingStatement.output) {
+                                                            outputWidget = widget;
+                                                        }
+
+                                                    }
+
+                                                    var input1String;
+                                                    if (input1Widget)
+                                                        input1String = input1Widget.text;
+                                                    else
+                                                        input1String = statement.input1;
+
+                                                    var searchString;
+                                                    if (searchWidget)
+                                                        searchString = searchWidget.text;
+                                                    else
+                                                        searchString = statement.searchvalue;
+
+                                                    var lengthString;
+                                                    if (lengthWidget)
+                                                        lengthString = lengthWidget.text;
+                                                    else
+                                                        lengthString = statement.start;
+
+                                                    if ("" === lengthString)
+                                                        startString = input1String.length;
+
+                                                    var outputString = input1String.endsWith(searchString, lengthString);
+
+                                                    if (outputWidget)
                                                         outputWidget.text = outputString;
                                                     else
                                                         alert(outputString);
                                                 }
                                             }
                                         }
+
                                     },
                                     function (err) {
                                         vm.error = err;

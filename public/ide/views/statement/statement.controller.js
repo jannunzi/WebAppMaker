@@ -97,6 +97,7 @@
             {label: 'Index Of',     value: 'INDEXOF'},
             {label: 'Last Index Of',value: 'LASTINDEXOF'},
             {label: 'Search',       value: 'SEARCH'},
+            {label: 'Slice',       value: 'SLICE'},
             {label: 'Repeat',       value: 'REPEAT'},
             {label: 'Replace',      value: 'REPLACE'},
             {label: 'Lowercase',    value: 'LOWERCASE'},
