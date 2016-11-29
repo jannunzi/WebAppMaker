@@ -42,9 +42,14 @@
                 url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ pageId;
 
             websiteId = model123.websiteId;
+/*
 
-            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel</div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3></div></div>";
+            url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ page.data._id;
+            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a href=" + url + "><span class='glyphicon glyphicon-ok'></span> </span></a></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3></div></div>";
 
+*/
+//            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <span class='glyphicon glyphicon-cog'> </span><span class='glyphicon glyphicon-remove'> </span></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
+            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <span class='glyphicon glyphicon-cog'> </span><span class='glyphicon glyphicon-remove'> </span></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3>";
             var newPage = {name : "New Page", title : "default"};
             console.log("jgaDroppable");
             console.log([scope, element, attributes]);
@@ -66,7 +71,7 @@
                         .then(function(page){
                             console.log(page);
                             url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ page.data._id;
-                            pageHtml = "<h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3>";
+                            //pageHtml = "<h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3>";
 
                             // var newNode = {type: 'PAGE'};
                             // FlowDiagramService.addNode(newNode);
@@ -95,6 +100,7 @@
         }
 
         function renderDiagram(canvas) {
+            canvas.empty();
 
             PageService
                 .findPagesForWebsite(websiteId)
