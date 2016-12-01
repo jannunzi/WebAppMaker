@@ -29,8 +29,20 @@
         return PageService.createPage(page);
     }
 
-    function jgaDroppable(FlowDiagramService, PageService) {
+    function jgaDroppable(FlowDiagramService, PageService, $compile) {
         var pageHtml;
+        var canvas;
+
+        $('body').on('click', '.removePage', function (event) {
+            var element = $(event.currentTarget);
+            var id = element.attr('id');
+            PageService
+                .removePage(id)
+                .success(function(){
+                    renderDiagram(canvas);
+                });
+        });
+
         console.log(PageService);
         var actionHtml = "<h3 class='node'>Action</h3>";
         var conditionalHtml = "<h3 class='node'>Conditional</h3>";
@@ -53,7 +65,7 @@
             var newPage = {name : "New Page", title : "default"};
             console.log("jgaDroppable");
             console.log([scope, element, attributes]);
-            var canvas = element;
+            canvas = element;
             renderDiagram(canvas);
             canvas.droppable({
                 drop: function(qq, ww){
@@ -69,10 +81,12 @@
                     newPage.y = position.top;
                     PageService.createPage(websiteId, newPage)
                         .then(function(page){
+                            var pageModel   = model123.pageModel;
                             console.log(page);
-                            url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ page.data._id;
+                            url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/PAGE_ID';
                             //pageHtml = "<h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3>";#428bca
-                            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a href=" + url + " style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><span class='glyphicon glyphicon-remove'> </span></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
+                            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a href=" + url + " style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><a class='removePage' id='PAGE_ID' style='background-color: #ffffcc'><span class='glyphicon glyphicon-remove'> </span></a></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
+
                             // var newNode = {type: 'PAGE'};
                             // FlowDiagramService.addNode(newNode);
                             // console.log(FlowDiagramService.getDiagram());
@@ -95,6 +109,7 @@
                             FlowDiagramService.addNode(node);
                             renderDiagram(canvas);
                         });
+
                 }
             });
         }
@@ -106,7 +121,8 @@
                 .findPagesForWebsite(websiteId)
                 .success(function(pages){
                     for(var p in pages) {
-                        $(pageHtml)
+                        var html = pageHtml.replace(/PAGE_ID/g, pages[p]._id);
+                        $(html)
                             .css({
                                 position: 'absolute',
                                 top: pages[p].y,
