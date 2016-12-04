@@ -164,6 +164,7 @@
                 }
             }
 
+            /*
             if( false === isNaN(args[0]) && false === isNaN(args[1])) {
                 var mathExpression = '(' + args[0] + ')' + BooleanOperations[booleanStatement.operationType] + '(' + args[1] + ')';
                 var result = math.eval(mathExpression);
@@ -172,6 +173,10 @@
             else{
                 outputWidget.text = "Operands must be a number"
             }
+            */
+            var mathExpression = '(' + args[0] + ')' + BooleanOperations[booleanStatement.operationType] + '(' + args[1] + ')';
+            var result = math.eval(mathExpression);
+            outputWidget.text = result;
 
         }
 
@@ -201,6 +206,12 @@
                     break;
                 }
             }
+
+            var mathExpression = '(' + args[0] + ')' + numberStatement.operationType + '(' + args[1] + ')';
+            var result = math.eval(mathExpression);
+            outputWidget.text = result;
+
+            /*
             if( false === isNaN(args[0]) && false === isNaN(args[1])) {
                 var mathExpression = '(' + args[0] + ')' + numberStatement.operationType + '(' + args[1] + ')';
 
@@ -209,6 +220,7 @@
             }else{
                 outputWidget.text = "Operands must be a number"
             }
+            */
         }
 
         function runStringStatement(widgets, stringStatement){
