@@ -48,6 +48,14 @@
             "/": ["input1", "input2"],
             "^": ["input1", "input2"],
         }
+        
+        var NumberOperations = {
+            "+": "+",
+            "-": "-",
+            "x": "*",
+            "/": "/",
+            "^": "^",
+        }
 
         var BooleanOperations = {
             "AND": "and",
@@ -174,9 +182,14 @@
                 outputWidget.text = "Operands must be a number"
             }
             */
-            var mathExpression = '(' + args[0] + ')' + BooleanOperations[booleanStatement.operationType] + '(' + args[1] + ')';
-            var result = math.eval(mathExpression);
-            outputWidget.text = result;
+            try {
+                var mathExpression = '(' + args[0] + ')' + BooleanOperations[booleanStatement.operationType] + '(' + args[1] + ')';
+                var result = math.eval(mathExpression);
+                outputWidget.text = result;
+            }
+            catch(err){
+                outputWidget.text = "Operands must be a number";
+            }
 
         }
 
@@ -207,10 +220,14 @@
                 }
             }
 
-            var mathExpression = '(' + args[0] + ')' + numberStatement.operationType + '(' + args[1] + ')';
-            var result = math.eval(mathExpression);
-            outputWidget.text = result;
-
+            try {
+                var mathExpression = '(' + args[0] + ')' + NumberOperations[numberStatement.operationType] + '(' + args[1] + ')';
+                var result = math.eval(mathExpression);
+                outputWidget.text = result;
+            }
+            catch(err){
+                outputWidget.text = "Operands must be a number";
+            }
             /*
             if( false === isNaN(args[0]) && false === isNaN(args[1])) {
                 var mathExpression = '(' + args[0] + ')' + numberStatement.operationType + '(' + args[1] + ')';
