@@ -4,6 +4,7 @@
         .factory("StatementService", statementService);
 
     function statementService($http) {
+        //var math = require('mathjs');
         var StringOperations = {
             "SUBSTRING" : substring,
             "LENGTH" : length,
@@ -38,9 +39,16 @@
             "TRIM": ["input1"],
             "STARTSWITH": ["input1", "searchvalue", "start" ],
             "ENDSWITH": ["input1", "searchvalue", "length" ],
-
-
         }
+
+        var NumberOperationArguments = {
+            "+": ["input1", "input2"],
+            "-": ["input1", "input2"],
+            "x": ["input1", "input2"],
+            "/": ["input1", "input2"],
+            "^": ["input1", "input2"],
+        }
+
 
         var api = {
             addStatement : addStatement,
@@ -97,36 +105,73 @@
         }
 
         function runStatement(widgets, statement){
-            if("STRING" === statement.statementType) {
-                var stringStatement = statement.stringStatement;
-                var args = [];
-                var funcArgNames = StringOperationArguments[stringStatement.operationType];
-                for (var i = 0; i < funcArgNames.length; ++i) {
-                    var argName = funcArgNames[i];
-                    var arg = stringStatement[argName];
+            if("STRING" === statement.statementType)
+                runStringStatement(widgets, statement.stringStatement);
+            else if("NUMBER" == statement.statementType)
+                runNumberStatement(widgets, statement.numberStatement);
+        }
 
-                    for (var j = 0; j < widgets.length; ++j) {
-                        var widget = widgets[j];
-                        if (widget.name == arg) {
-                            arg = widget.text;
-                            break;
-                        }
-                    }
-                    args.push(arg);
-                }
+        function runNumberStatement(widgets, numberStatement){
+            var args = [];
+            var funcArgNames = NumberOperationArguments[numberStatement.operationType];
+            for (var i = 0; i < funcArgNames.length; ++i) {
+                var argName = funcArgNames[i];
+                var arg = numberStatement[argName];
 
-                var outputWidget;
-                for( var i = 0 ; i < widgets.length; ++i){
-                    var widget = widgets[i];
-                    if(widget.name == stringStatement.output){
-                        outputWidget = widget;
+                for (var j = 0; j < widgets.length; ++j) {
+                    var widget = widgets[j];
+                    if (widget.name == arg) {
+                        arg = widget.text;
                         break;
                     }
                 }
-
-                var result = StringOperations[stringStatement.operationType](args);
-                outputWidget.text = result;
+                args.push(arg);
             }
+
+
+            var outputWidget;
+            for( var i = 0 ; i < widgets.length; ++i){
+                var widget = widgets[i];
+                if(widget.name == numberStatement.output){
+                    outputWidget = widget;
+                    break;
+                }
+            }
+
+            var mathExpression = '(' + args[0] + ')' + numberStatement.operationType + '(' + args[1] + ')';
+
+            var result = math.eval(mathExpression);
+            outputWidget.text = result;
+        }
+
+        function runStringStatement(widgets, stringStatement){
+            var args = [];
+            var funcArgNames = StringOperationArguments[stringStatement.operationType];
+            for (var i = 0; i < funcArgNames.length; ++i) {
+                var argName = funcArgNames[i];
+                var arg = stringStatement[argName];
+
+                for (var j = 0; j < widgets.length; ++j) {
+                    var widget = widgets[j];
+                    if (widget.name == arg) {
+                        arg = widget.text;
+                        break;
+                    }
+                }
+                args.push(arg);
+            }
+
+            var outputWidget;
+            for( var i = 0 ; i < widgets.length; ++i){
+                var widget = widgets[i];
+                if(widget.name == stringStatement.output){
+                    outputWidget = widget;
+                    break;
+                }
+            }
+
+            var result = StringOperations[stringStatement.operationType](args);
+            outputWidget.text = result;
         }
 
         function substring(args){
