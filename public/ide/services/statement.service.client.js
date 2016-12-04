@@ -49,6 +49,28 @@
             "^": ["input1", "input2"],
         }
 
+        var BooleanOperations = {
+            "AND": "and",
+            "OR": "or",
+            "Equal to": "==",
+            "NOT Equal": "!=",
+            "Greater than": ">",
+            "Greater than or equal": ">=",
+            "Less than": "<",
+            "Less than or equal": "<=",
+        }
+
+        var BooleanOperationArguments = {
+            "AND": ["input1", "input2"],
+            "OR": ["input1", "input2"],
+            "Equal to": ["input1", "input2"],
+            "NOT Equal": ["input1", "input2"],
+            "Greater than": ["input1", "input2"],
+            "Greater than or equal": ["input1", "input2"],
+            "Less than": ["input1", "input2"],
+            "Less than or equal": ["input1", "input2"],
+        }
+
 
         var api = {
             addStatement : addStatement,
@@ -105,10 +127,52 @@
         }
 
         function runStatement(widgets, statement){
-            if("STRING" === statement.statementType)
+            var type = statement.statementType;
+            if("STRING" === type)
                 runStringStatement(widgets, statement.stringStatement);
-            else if("NUMBER" == statement.statementType)
+            else if("NUMBER" === type)
                 runNumberStatement(widgets, statement.numberStatement);
+            else if("BOOLEAN" === type)
+                runBooleanStatement(widgets, statement.booleanStatement);
+
+        }
+
+        function runBooleanStatement(widgets, booleanStatement){
+            var args = [];
+            var funcArgNames = BooleanOperationArguments[booleanStatement.operationType];
+            for (var i = 0; i < funcArgNames.length; ++i) {
+                var argName = funcArgNames[i];
+                var arg = booleanStatement[argName];
+
+                for (var j = 0; j < widgets.length; ++j) {
+                    var widget = widgets[j];
+                    if (widget.name == arg) {
+                        arg = widget.text;
+                        break;
+                    }
+                }
+                args.push(arg);
+            }
+
+
+            var outputWidget;
+            for( var i = 0 ; i < widgets.length; ++i){
+                var widget = widgets[i];
+                if(widget.name == booleanStatement.output){
+                    outputWidget = widget;
+                    break;
+                }
+            }
+
+            if( false === isNaN(args[0]) && false === isNaN(args[1])) {
+                var mathExpression = '(' + args[0] + ')' + BooleanOperations[booleanStatement.operationType] + '(' + args[1] + ')';
+                var result = math.eval(mathExpression);
+                outputWidget.text = result;
+            }
+            else{
+                outputWidget.text = "Operands must be a number"
+            }
+
         }
 
         function runNumberStatement(widgets, numberStatement){

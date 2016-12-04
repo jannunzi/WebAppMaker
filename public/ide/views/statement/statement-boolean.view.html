@@ -12,8 +12,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right wam-left">
-                    <li ng-repeat="variable in model.stmtvariables" ng-click="model.statement.booleanStatement.output = variable">
-                        <a>{{variable}}</a>
+                    <li ng-repeat="widget in model.widgets" ng-click="model.statement.booleanStatement.output = widget.name">
+                        <a>{{widget.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -34,17 +34,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right wam-left">
-                    <li ng-click="model.statement.booleanStatement.input1 = 'NOT'">
-                        <a>NOT</a>
-                    </li>
-                    <li ng-click="model.statement.booleanStatement.input1 = 'True'">
-                        <a>True</a>
-                    </li>
-                    <li ng-click="model.statement.booleanStatement.input1 = 'False'">
-                        <a>False</a>
-                    </li>
-                    <li ng-repeat="variable in model.stmtvariables" ng-click="model.statement.booleanStatement.input1= variable">
-                        <a>{{variable}}</a>
+                    <li ng-repeat="widget in model.widgets" ng-click="model.statement.booleanStatement.input1 = widget.name">
+                        <a>{{widget.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -76,8 +67,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right wam-left">
-                    <li ng-repeat="variable in model.stmtvariables" ng-click="model.statement.booleanStatement.input2 = variable">
-                        <a>{{variable}}</a>
+                    <li ng-repeat="widget in model.widgets" ng-click="model.statement.booleanStatement.input2 = widget.name">
+                        <a>{{widget.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -101,8 +92,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right wam-left">
-                    <li ng-repeat="variable in model.stmtvariables" ng-click="model.statement.booleanStatement.output = variable">
-                        <a>{{variable}}</a>
+                    <li ng-repeat="widget in model.widgets" ng-click="model.statement.booleanStatement.output = widget.name">
+                        <a>{{widget.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -126,17 +117,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right wam-left">
-                    <li ng-click="model.statement.booleanStatement.input1 = 'NOT'">
-                        <a>NOT</a>
-                    </li>
-                    <li ng-click="model.statement.booleanStatement.input1 = 'True'">
-                        <a>True</a>
-                    </li>
-                    <li ng-click="model.statement.booleanStatement.input1 = 'False'">
-                        <a>False</a>
-                    </li>
-                    <li ng-repeat="variable in model.stmtvariables" ng-click="model.statement.booleanStatement.input1= variable">
-                        <a>{{variable}}</a>
+                    <li ng-repeat="widget in model.widgets" ng-click="model.statement.booleanStatement.input1 = widget.name">
+                        <a>{{widget.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -168,8 +150,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right wam-left">
-                    <li ng-repeat="variable in model.stmtvariables" ng-click="model.statement.booleanStatement.input2 = variable">
-                        <a>{{variable}}</a>
+                    <li ng-repeat="widget in model.widgets" ng-click="model.statement.booleanStatement.input2 = widget.name">
+                        <a>{{widget.name}}</a>
                     </li>
                 </ul>
             </div>

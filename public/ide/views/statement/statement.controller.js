@@ -69,7 +69,8 @@
         ];
 
         vm.comparators = [
-            {label: '='},
+            {label: '=='},
+            {label: '!='},
             {label: '>'},
             {label: '>='},
             {label: '<'},
@@ -78,6 +79,7 @@
 
         vm.verboseComparators = [
             {label: 'Equal to'},
+            {label: 'NOT Equal'},
             {label: 'Greater than'},
             {label: 'Greater than or equal'},
             {label: 'Less than'},
