@@ -5,6 +5,7 @@
 
     function statementService($http) {
         //var math = require('mathjs');
+        /*
         var StringOperations = {
             "SUBSTRING" : substring,
             "LENGTH" : length,
@@ -21,6 +22,24 @@
             "TRIM": trim,
             "STARTSWITH": startsWith,
             "ENDSWITH": endsWith,
+        };*/
+
+        var StringOperations = {
+            "SUBSTRING" : "substring",
+            "LENGTH" : "length",
+            "CONCATENATE": "concat",
+            "CHARAT": "charAt",
+            "INDEXOF": "indexOf",
+            "LASTINDEXOF": "lastIndexOf",
+            "SEARCH": "search",
+            "REPEAT": "repeat",
+            "REPLACE": "replace",
+            "SLICE": "slice",
+            "LOWERCASE": "toLowerCase",
+            "UPPERCASE": "toUpperCase",
+            "TRIM": "trim",
+            "STARTSWITH": "startsWith",
+            "ENDSWITH": "endsWith",
         };
 
         var StringOperationArguments = {
@@ -266,10 +285,22 @@
                 }
             }
 
-            var result = StringOperations[stringStatement.operationType](args);
+            var expression = "var result = args[0]." +  StringOperations[stringStatement.operationType];
+            if("LENGTH" !== stringStatement.operationType ){
+                expression += "(";
+                for( var i = 1; i < args.length; ++i){
+                    expression = expression + "args[" + i + "]";
+                    if(i + 1 < args.length)
+                        expression += ",";
+                }
+                expression += ")";
+            }
+
+            //var result = StringOperations[stringStatement.operationType](args);
+            eval(expression);
             outputWidget.text = result;
         }
-
+/*
         function substring(args){
             return args[0].substring(args[1], args[2]);
         }
@@ -332,6 +363,6 @@
 
         function endsWith(args){
             return args[0].startsWith(args[1], args[2]);
-        }
+        }*/
     }
 })();
