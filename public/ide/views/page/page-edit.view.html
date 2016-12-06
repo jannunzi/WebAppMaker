@@ -3,28 +3,28 @@
 <nav class="navbar navbar-default navbar-fixed-top jga">
 
     <!--Hidden in extra small devices-->
+    <div class="container-fluid">
+    <div class="navbar-text hidden-xs pull-left">
 
-    <div class="navbar-header hidden-xs">
-
-        <a href="#/developer/{{currentUser._id}}/website"
-           class="btn btn-default btn-transparent pull-left">
+        <a href="#/developer/{{currentUser._id}}/website">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-
+</div>
+        <div class="navbar-header hidden-xs pull-left">
         <a class="navbar-brand">{{model.website.name}} - Pages</a>
+        </div>
 
 
-    </div>
 
     <div class="hidden-xs landscape-right">
         <a class="navbar-brand">Edit Page</a>
 
         <a ng-click="model.updatePage (model.page)"
-           class="btn btn-default btn-transparent padding">
+           class="btn btn-default btn-transparent padding pull-right">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>
-
+    </div>
     <!--Only visible in extra small devices-->
 
     <div class="visible-xs">
@@ -36,7 +36,7 @@
         <a class="navbar-brand">New Page</a>
 
         <a ng-click="model.updatePage (model.page)"
-           class="btn btn-default btn-transparent padding">
+           class="btn btn-default btn-transparent padding pull-right">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>

@@ -99,6 +99,12 @@
                 controllerAs: "model",
                 resolve: { loggedin: checkLoggedin }
             })
+            .when ("/developer/:developerId/website/:websiteId/flow", {
+                templateUrl: "views/flow/flow.view.client.html",
+                controller: "FlowController",
+                controllerAs: "model",
+                resolve: { loggedin: checkLoggedin }
+            })
             .when ("/developer/:developerId/website/:websiteId/page/new", {
                 templateUrl: "views/page/page-new.view.html",
                 controller: "NewPageController",

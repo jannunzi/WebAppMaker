@@ -1,19 +1,25 @@
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/metro/3.0.15/css/metro-icons.css" rel="stylesheet">
+</head>
 <nav class="navbar navbar-default navbar-fixed-top jga">
-    <div class="navbar-header">
+    <div class="navbar-header pull-left">
 
         <a href="#/developer/{{currentUser._id}}/website"
            class="btn btn-default btn-transparent pull-left">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-
+        </div>
+        <div class="navbar-header pull-left">
         <a class="navbar-brand">{{model.website.name}} - Pages</a>
-
+        </div>
+        <p class="navbar-text pull-right">
         <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/page/new"
-           class="btn btn-default btn-transparent pull-right">
+           >
             <span class="glyphicon glyphicon-plus"></span>
         </a>
+        </p>
 
-    </div>
+
 </nav>
 
 <div ng-if="model.error"
@@ -75,5 +81,11 @@
            class="navbar-toggle collapsed">
             <span class="glyphicon glyphicon-user"></span>
         </a>
+
+        <a href="#/developer/{{model.developerId}}/website/{{model.websiteId}}/flow" class="btn btn-default btn-transparent pull-right">
+            <span class="mif-flow-tree"></span>
+        </a>
+
+
     </div>
 </nav>

@@ -56,6 +56,7 @@ a {
 body {
     padding-top: 60px;
     padding-bottom: 60px;
+    overflow-x: hidden;
 }
 
 .navbar-default .navbar-toggle {
@@ -299,5 +300,12 @@ th {
     position: relative;
     height: calc(100vh - 100px);
     overflow: auto;
+}
+
+.thumbnail, .thumbnail>img, .img-responsive{
+    width: 60%;
+    height: 60%;
+    max-width: 60%;
+    max-height: 60%;
 }
 
