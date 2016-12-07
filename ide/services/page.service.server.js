@@ -52,7 +52,8 @@ module.exports = function (app, model) {
             .updatePage(pageId, page)
             .then(
                 function(stat) {
-                    res.send(200);
+                    console.log("Stattttttttttttttt ,", stat);
+                    res.status(200).json({});
                 },
                 function(err) {
                     res.status(404).send(err);
@@ -67,7 +68,7 @@ module.exports = function (app, model) {
             .removePage(pageId)
             .then(
                 function(stat) {
-                    res.send(200);
+                    res.status(200).json({});
                 },
                 function(err) {
                     res.status(400).send(err);

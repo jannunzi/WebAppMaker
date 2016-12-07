@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var q = require("q");
 
 module.exports = function (model) {
-    
+
     var WebsiteSchema = require("./website.schema.server.js")();
     var Website = mongoose.model("Website", WebsiteSchema);
 
@@ -59,7 +59,7 @@ module.exports = function (model) {
     }
 
     function createWebsite (website) {
-        return Website.create (website)
+        var website =  Website.create (website)
             .then(
                 function(website) {
                     model.developerModel
@@ -78,5 +78,8 @@ module.exports = function (model) {
                     console.log(error);
                 }
             );
+
+            console.log("Create website in model ", website);
+            return website;
     }
 };

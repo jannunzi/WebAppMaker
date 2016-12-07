@@ -14,6 +14,9 @@ var cookieParser = require('cookie-parser');
 // load session support
 var session      = require('express-session');
 
+// load cors for Cross side scripts
+var cors = require('cors');
+
 // configure cookie parser - needed for oauth
 app.use(cookieParser());
 
@@ -33,6 +36,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// for aalowing cross side scripting
+app.use(cors());
+
 // pass mongojs connection to our server side app
 require ("./ide/app.js")(app);
 
@@ -40,5 +46,12 @@ require ("./ide/app.js")(app);
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 
 app.listen(port, ipaddress);

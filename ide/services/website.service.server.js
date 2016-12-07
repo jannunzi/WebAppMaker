@@ -17,7 +17,9 @@ module.exports = function (app, model) {
             .updateWebsite(websiteId, website)
             .then(
                 function(response) {
-                    res.json(response.result);
+                  console.log(response.result);
+                    //res.json(response.result);
+                    res.json({});
                 },
                 function(err) {
                     res.status(400).send(err);
@@ -26,12 +28,14 @@ module.exports = function (app, model) {
     }
 
     function removeWebsite (req, res) {
+        console.log("Remove");
         var websiteId = req.params.websiteId;
         websiteModel
             .removeWebsite(websiteId)
             .then(
                 function(response) {
-                    res.json(response.result);
+                    console.log("Here ", response);
+                    res.header("Access-Control-Allow-Origin", "*").json({});
                 },
                 function(err) {
                     res.status(400).send(err);
@@ -40,12 +44,13 @@ module.exports = function (app, model) {
     }
 
     function findWebsiteById (req, res) {
+        console.log("Find website by ID");
         var websiteId = req.params.websiteId;
         websiteModel
             .findWebsiteById(websiteId)
             .then(
                 function(website) {
-                    res.json(website);
+                    res.header("Access-Control-Allow-Origin", "*").json(website);
                 },
                 function(err) {
                     res.status(400).send(err);
@@ -59,7 +64,7 @@ module.exports = function (app, model) {
             .findWebsitesForDeveloperId (developerId)
             .then (
                 function (developer) {
-                    res.json (developer.websites);
+                    res.header("Access-Control-Allow-Origin", "*").json(developer.websites);
                 },
                 function (err) {
                     res.status(400).send(err);
@@ -68,13 +73,17 @@ module.exports = function (app, model) {
     }
 
     function createWebsite (req, res) {
+        console.log("Create website");
         var developerId = req.params.developerId;
         var website = req.body;
+        console.log("Create website " , developerId);
+        console.log("Website To Save " , website);
         websiteModel
             .createWebsite (website)
             .then (
                 function (website) {
-                    res.json (website);
+                    console.log("The Website to return : " , website);
+                    res.header("Access-Control-Allow-Origin", "*").json(website);
                 },
                 function (err) {
                     res.status(400).send(err);
