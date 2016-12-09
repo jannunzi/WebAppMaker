@@ -59,7 +59,7 @@ module.exports = function(app, model) {
             );
     }
 
-
+// These are mongo commonds to insert sample flow, nodes and connections
 
 //         db.flow.insert({_id: "5843abda1f0a92ccd7f1ced3",
 //        _developer:ObjectId("581e32c9c247e43b7c09dac4"),

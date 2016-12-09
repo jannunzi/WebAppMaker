@@ -8,6 +8,8 @@ module.exports = function () {
         _website: { type: mongoose.Schema.Types.ObjectId, ref: 'Website' },
         name: String,
         title: String,
+        x: Number,
+        y: Number,
         widgets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Widget' }],
         dateCreated: {type: Date, default: Date.now}
     });

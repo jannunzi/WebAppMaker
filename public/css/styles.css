@@ -302,10 +302,14 @@ th {
     overflow: auto;
 }
 
-.thumbnail, .thumbnail>img, .img-responsive{
+
+.thumbnail .caption{
+    padding: 5px;
+}
+
+.thumbnail, .thumbnail>img{
     width: 60%;
     height: 60%;
     max-width: 60%;
     max-height: 60%;
 }
-

@@ -66,28 +66,28 @@
                 // x4 and y4 are coordinate for new starting point of line
                 var d = Math.sqrt((y1 - y2)*(y1 - y2) + (x1 - x2)*(x1 - x2));
                 //d is the distance between node1 and node2
-                var p = 140 * (Math.abs(x1 - x2)) / d;
+                var horizontalCorrectFactor = 140 * (Math.abs(x1 - x2)) / d;
                 //140 is the approximation of the distance from arrow to the center of box
-                var q = 140 * (Math.abs(y1 - y2)) / d;
-                // p is the the x coordinate correct factor of x3
-                // q is the the y coordinate correct factor of y3
+                var verticalCorrectFactor = 140 * (Math.abs(y1 - y2)) / d;
+                // horizontalCorrectFactor is the the x coordinate correct factor of x3
+                // verticalCorrectFactor is the the y coordinate correct factor of y3
 
 
                 if (x1 >= x2){
-                    x3 = x2 + p;
-                    x4 = x1 - p/1.4;    //1.4 is the approximation of the scale of start point
+                    x3 = x2 + horizontalCorrectFactor;
+                    x4 = x1 - horizontalCorrectFactor/1.4;    //1.4 is the approximation of the scale of start point
                 }
                 else{
-                    x3 = x2 - p;
-                    x4 = x1 + p/1.4;
+                    x3 = x2 - horizontalCorrectFactor;
+                    x4 = x1 + horizontalCorrectFactor/1.4;
                 }
                 if(y1 >= y2){
-                    y3 = y2 + q  ;
-                    y4 = y1 - q/1.4 ;
+                    y3 = y2 + verticalCorrectFactor  ;
+                    y4 = y1 - verticalCorrectFactor/1.4 ;
                 }
                 else{
-                    y3 = y2 - q ;
-                    y4 = y1 + q/1.4 ;
+                    y3 = y2 - verticalCorrectFactor ;
+                    y4 = y1 + verticalCorrectFactor/1.4 ;
                 }
 
                 var answer = [x4, y4, x3, y3];
