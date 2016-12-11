@@ -3,11 +3,12 @@
         .module("WebAppMakerApp")
         .factory("ScriptService", scriptService);
 
-    function scriptService($http) {
+    function scriptService($http, StatementService) {
         var api = {
             createScript : saveScript,
             saveScript   : saveScript,
-            findScript   : findScript
+            findScript   : findScript,
+            runScript : runScript
         };
         return api;
         
@@ -35,6 +36,12 @@
                 url += "/page/"+scope.pageId;
                 url += "/widget/"+scope.widgetId;
             return url;
+        }
+
+        function runScript(widgets, statements){
+            for(var i = 0 ; i < statements.length; ++i) {
+                StatementService.runStatement(widgets, statements[i]);
+            }
         }
     }
 })();

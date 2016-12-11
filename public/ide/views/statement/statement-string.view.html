@@ -49,9 +49,9 @@
     </div>
     <div ng-show="model.statement.stringStatement.start">
         <div class="form-group">
-            <label for="stringLength">Length</label>
+            <label for="stringLength">End</label>
             <div class="input-group">
-                <input ng-model="model.statement.stringStatement.length" type="text" class="form-control" id="stringLength">
+                <input ng-model="model.statement.stringStatement.end" type="text" class="form-control" id="stringLength">
                 <div class="input-group-btn">
                     <button type="button"
                             class="btn btn-default dropdown-toggle"
@@ -59,7 +59,7 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right wam-left">
-                        <li ng-repeat="widget in model.widgets" ng-click="model.statement.stringStatement.length = widget.name">
+                        <li ng-repeat="widget in model.widgets" ng-click="model.statement.stringStatement.end = widget.name">
                             <a>{{widget.name}}</a>
                         </li>
                     </ul>
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div ng-show="model.statement.stringStatement.length">
+    <div ng-show="model.statement.stringStatement.end">
         <div class="form-group">
             <label for="stringOutput">Output</label>
             <div class="input-group">
@@ -897,6 +897,88 @@
             <label for="endsOutput">Output</label>
             <div class="input-group">
                 <input ng-model="model.statement.stringStatement.output" type="text" class="form-control" id="endsOutput">
+                <div class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right wam-left">
+                        <li ng-repeat="widget in model.widgets" ng-click="model.statement.stringStatement.output = widget.name">
+                            <a>{{widget.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="model.stringOperation.label==='Slice'">
+    <div class="form-group">
+        <label for="sliceString">String</label>
+        <div class="input-group">
+            <input ng-model="model.statement.stringStatement.input1" type="text" class="form-control" id="sliceString">
+            <div class="input-group-btn">
+                <button type="button"
+                        class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right wam-left">
+                    <li ng-repeat="widget in model.widgets" ng-click="model.statement.stringStatement.input1 = widget.name">
+                        <a>{{widget.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-show="model.statement.stringStatement.input1">
+        <div class="form-group">
+            <label for="sliceStart">Start</label>
+            <div class="input-group">
+                <input ng-model="model.statement.stringStatement.start" type="text" class="form-control" id="sliceStart">
+                <div class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right wam-left">
+                        <li ng-repeat="widget in model.widgets" ng-click="model.statement.stringStatement.start = widget.name">
+                            <a>{{widget.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="model.statement.stringStatement.start">
+        <div class="form-group">
+            <label for="sliceEnd">End</label>
+            <div class="input-group">
+                <input ng-model="model.statement.stringStatement.end" type="text" class="form-control" id="sliceEnd">
+                <div class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right wam-left">
+                        <li ng-repeat="widget in model.widgets" ng-click="model.statement.stringStatement.end = widget.name">
+                            <a>{{widget.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="model.statement.stringStatement.end">
+        <div class="form-group">
+            <label for="sliceOutput">Output</label>
+            <div class="input-group">
+                <input ng-model="model.statement.stringStatement.output" type="text" class="form-control" id="sliceOutput">
                 <div class="input-group-btn">
                     <button type="button"
                             class="btn btn-default dropdown-toggle"
