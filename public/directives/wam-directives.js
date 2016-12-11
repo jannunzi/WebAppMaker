@@ -7,6 +7,7 @@
         .directive("jgaSortable", jgaSortable);
 
     var websiteId;
+    var pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><a class='removePage' id='PAGE_ID' style='background-color: #ffffcc'><span class='glyphicon glyphicon-remove'> </span></a></div><div class='panel-body'><h3 class='node'><a><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
 
     function jgaDraggable() {
         function link(scope, element, attributes) {
@@ -29,8 +30,20 @@
         return PageService.createPage(page);
     }
 
-    function jgaDroppable(FlowDiagramService, PageService) {
-        var pageHtml;
+    function jgaDroppable(FlowDiagramService, PageService, $compile) {
+
+        var canvas;
+
+        $('body').on('click', '.removePage', function (event) {
+            var element = $(event.currentTarget);
+            var id = element.attr('id');
+            PageService
+                .removePage(id)
+                .success(function(){
+                    renderDiagram(canvas,pageHtml);
+                });
+        });
+
         console.log(PageService);
         var actionHtml = "<h3 class='node'>Action</h3>";
         var conditionalHtml = "<h3 class='node'>Conditional</h3>";
@@ -42,19 +55,11 @@
                 url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ pageId;
 
             websiteId = model123.websiteId;
-/*
-
-            url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ page.data._id;
-            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a href=" + url + "><span class='glyphicon glyphicon-ok'></span> </span></a></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3></div></div>";
-
-*/
-//            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <span class='glyphicon glyphicon-cog'> </span><span class='glyphicon glyphicon-remove'> </span></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
-//            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <span class='glyphicon glyphicon-cog'> </span><span class='glyphicon glyphicon-remove'> </span></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3>";
             var newPage = {name : "New Page", title : "default"};
             console.log("jgaDroppable");
             console.log([scope, element, attributes]);
-            var canvas = element;
-            renderDiagram(canvas);
+            canvas = element;
+            renderDiagram(canvas,pageHtml);
             canvas.droppable({
                 drop: function(qq, ww){
                     console.log(model123);
@@ -69,13 +74,12 @@
                     newPage.y = position.top;
                     PageService.createPage(websiteId, newPage)
                         .then(function(page){
+                            var pageModel   = model123.pageModel;
                             console.log(page);
-                            url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/'+ page.data._id;
-                            //pageHtml = "<h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png' alt='...'></a></h3>";#428bca
-                            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a href=" + url + " style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><span class='glyphicon glyphicon-remove'> </span></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
-                            // var newNode = {type: 'PAGE'};
-                            // FlowDiagramService.addNode(newNode);
-                            // console.log(FlowDiagramService.getDiagram());
+                            url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/PAGE_ID';
+
+                            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a href=" + url + " style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><a class='removePage' id='PAGE_ID' style='background-color: #ffffcc'><span class='glyphicon glyphicon-remove'> </span></a></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
+
                             var helper = $(ww.helper);
                             var position = helper.position();
                             position.left -= canvas.position().left;
@@ -93,20 +97,23 @@
                                 return;
                             }
                             FlowDiagramService.addNode(node);
-                            renderDiagram(canvas);
+                            renderDiagram(canvas,pageHtml);
                         });
+
                 }
             });
         }
 
-        function renderDiagram(canvas) {
+        function renderDiagram(canvas,pageHtml) {
             canvas.empty();
 
             PageService
                 .findPagesForWebsite(websiteId)
                 .success(function(pages){
+
                     for(var p in pages) {
-                        $(pageHtml)
+                        var html = pageHtml.replace(/PAGE_ID/g, pages[p]._id);
+                        $(html)
                             .css({
                                 position: 'absolute',
                                 top: pages[p].y,
@@ -115,38 +122,6 @@
                             .appendTo(canvas);
                     }
                 });
-            //
-            // var diagram = FlowDiagramService.getFlowDiagram();
-            // canvas.empty();
-            // for(var d in diagram) {
-            //     var node = diagram[d];
-            //     var newNode = {};
-            //     if(node.type === 'PAGE') {
-            //         newNode = $(pageHtml);
-            //     } else if(node.type === 'ACTION') {
-            //         newNode = $(actionHtml);
-            //     } else if(node.type === 'CONDITIONAL') {
-            //         newNode = $(conditionalHtml);
-            //     }
-            //     newNode.css({
-            //         "position": "absolute",
-            //         "top": node.position.top,
-            //         "left": node.position.left,
-            //     }).draggable({
-            //         containment: "parent",
-            //         stop: function(event, ui){
-            //             var id = ui.helper.attr("id");
-            //             for(var d in diagram) {
-            //                 var node = diagram[d];
-            //                 if(node._id == id) {
-            //                     node.position.left = ui.position.left;
-            //                     node.position.top = ui.position.top;
-            //                 }
-            //             }
-            //         }
-            //     }).attr("id", node._id);
-            //     canvas.append(newNode);
-            // }
         }
         return {
             restrict: 'EA',
