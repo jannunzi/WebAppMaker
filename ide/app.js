@@ -11,6 +11,7 @@ module.exports = function (app, db) {
     var statementService   = require("./services/statement.service.server.js")  (app, model);
     var shareService       = require("./services/share.service.server.js")      (app, model);
     var imageGalleryService= require("./services/imagegallery.service.server.js")(app,model);
+    var flowModel        = require("./services/flow.service.server")(app, model);
     // pass express app and db connection to database service
     var databaseService = require("./services/database.service.server")(app, model);
 

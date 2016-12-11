@@ -27,6 +27,9 @@ module.exports = function() {
     var scriptModel      = require("./script/script.model.server")(websiteModel);
     var statementModel   = require("./statement/statement.model.server")(model);
     var imageGalleryModel= require("./imageGallery/image.gallery.model.server")(model);
+    var flowModel        = require("./flow/flow.model.server")();
+    var nodeModel        = require("./flow/node.model.server")();
+    var connectionModel  = require("./flow/connection.model.server")();
     model.websiteModel   = websiteModel;
     model.shareModel     = shareModel;
     model.pageModel      = pageModel;
@@ -35,7 +38,10 @@ module.exports = function() {
     model.scriptModel    = scriptModel;
     model.statementModel = statementModel;
     model.imageGalleryModel=imageGalleryModel;
+    model.flowModel      = flowModel;
+    model.nodeModel      = nodeModel;
+    model.connectionModel= connectionModel;
     model.mongo          = mongo;
 
     return model;
-}
+};

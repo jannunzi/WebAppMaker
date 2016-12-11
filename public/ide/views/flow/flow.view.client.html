@@ -43,24 +43,69 @@
     <!--<div class="col-sm-4 hidden-xs" style="margin-left:15px; margin-top: 50px; padding-top: 15px; margin-bottom: 50px; position: absolute;top: 0px;bottom: 0px;overflow: auto;z-index: 2;">-->
     <div class="col-sm-3 hidden-xs"  style="position:absolute; top:0px; left:0px; bottom: 0px;z-index: 2;border-right: 1px solid gray;">
         <h2>Tools</h2>
-        <h3 jga-draggable model="model" class="tool page"><img class="img-thumbnail mx-auto" ng-src="images/glyphicons-pages.png" alt="..."></h3>
-        <h3 jga-draggable class="tool action"><img class="img-thumbnail mx-auto" ng-src="images/glyphicons-action.png" alt="..."></h3>
-        <h3 jga-draggable class="tool conditional"><img class="img-thumbnail mx-auto" ng-src="images/glyphicons-conditional.png" alt="..."></h3>
-    </div>
-    <!--<div jga-droppable class="col-sm-8 pull-right" style="padding-left: 30px;padding-right: 0px;">-->
-    <div jga-droppable class="col-sm-9 pull-right" style="overflow: hidden;position:absolute; bottom: 0px; top: 0px; right: 0px;">
-        <div ng-repeat="node in model.diagram.nodes"
-             style="position: absolute; top:{{node.y}}px; left:{{node.x}}px"
-             class="panel panel-primary" jga-draggable>
-            <div class="panel-heading">{{node.name}}</div>
-            <div class="panel-body">
-                <img class="img-thumbnail mx-auto" ng-src="images/glyphicons-pages.png" ng-if="node.type === 'PAGE'"/>
-                <img class="img-thumbnail mx-auto" ng-src="images/glyphicons-action.png" ng-if="node.type === 'ACTION'"/>
-                <img class="img-thumbnail mx-auto" ng-src="images/glyphicons-conditional.png" ng-if="node.type === 'CONDITIONAL'"/>
-            </div>
+
+        <!--Issue id : FLOW-108
+            Added flow tools: page, action, and decision blocks to left hand side -->
+        <div class="img-thumbnail mx-auto">
+            <img class="img-responsive" src="images/document1.png" alt="...">
+            <h3 jga-draggable class="tool page">Page</h3>
+        </div>
+        <div class="img-thumbnail mx-auto">
+            <img class="img-responsive" src="images/action1.png" alt="...">
+            <h3 jga-draggable class="tool action">Action</h3>
+        </div>
+        <div class="img-thumbnail mx-auto">
+            <img class="img-responsive" src="images/decision1.png" alt="...">
+            <h3 jga-draggable class="tool conditional">Decision</h3>
         </div>
     </div>
+
+
+    <div jga-droppable class="col-sm-8 pull-right" style="padding-left: 30px;padding-right: 0px;">
+    <!--<div jga-droppable class="col-sm-9 pull-right" style="overflow: hidden;position:absolute; bottom: 0px; top: 0px; right: 0px;">-->
+        <div ng-repeat="node in model.nodes"
+             style="position: absolute; top:{{node.y}}px; left:{{node.x}}px;"
+             class="panel panel-primary">
+            <div class="panel-heading">{{node.name}}</div>
+            <div class="panel-body">
+                <img ng-src="images/document1.png" ng-if="node.type === 'PAGE'"/>
+                <img ng-src="images/action1.png" ng-if="node.type === 'ACTION'"/>
+                <img ng-src="images/decision1.png" ng-if="node.type === 'CONDITIONAL'"/>
+            </div>
+        </div>
+
+
+
+
+        <!--Issue id : FLOW-118
+            Draw Arrows for Existing Diagram from database -->
+            <div>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 height="3200px" width="3200px">
+                <defs style="position: absolute; z-index: 9999999">
+                    <marker
+                            id="arrow" markerWidth="10" markerHeight="10"
+                            refX="0" refY="3" orient="auto" markerUnits="strokeWidth" viewBox="0 0 15 15">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#f00" />
+                    </marker>
+                </defs>
+
+                <line ng-repeat="connection in model.connections"
+                      x1="{{model.drawPretty(connection.from, connection.to)[0]}}"
+                      y1="{{model.drawPretty(connection.from, connection.to)[1]}}"
+                      x2="{{model.drawPretty(connection.from, connection.to)[2]}}"
+                      y2="{{model.drawPretty(connection.from, connection.to)[3]}}"
+                      stroke="#000" stroke-width="5" marker-end="url(#arrow)" style="z-index: -9999999">
+                </line>
+                </svg>
+        </div>
+
+
+        </div>
+
 </div>
+
+
 
 <nav class="navbar navbar-default navbar-fixed-bottom jga">
     <div class="navbar-header">
