@@ -7,7 +7,7 @@
         .directive("jgaSortable", jgaSortable);
 
     var websiteId;
-    var pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><a class='removePage' id='PAGE_ID' style='background-color: #ffffcc'><span class='glyphicon glyphicon-remove'> </span></a></div><div class='panel-body'><h3 class='node'><a><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
+    var pageHtml = "<div jga-draggable class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><a class='removePage' id='PAGE_ID' style='background-color: #ffffcc'><span class='glyphicon glyphicon-remove'> </span></a></div><div class='panel-body'><h3 class='node'><a><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
 
     function jgaDraggable() {
         function link(scope, element, attributes) {
@@ -78,7 +78,7 @@
                             console.log(page);
                             url = '#/developer/' + developerId + '/website/' + websiteId + '/flow/123/page/PAGE_ID';
 
-                            pageHtml = "<div class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a href=" + url + " style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><a class='removePage' id='PAGE_ID' style='background-color: #ffffcc'><span class='glyphicon glyphicon-remove'> </span></a></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
+                            pageHtml = "<div jga-draggable class='panel panel-primary'><div class='panel-heading ng-binding'> Page panel <a href=" + url + " style='background-color: #ffffcc'> <span class='glyphicon glyphicon-cog'> </span> </a><a class='removePage' id='PAGE_ID' style='background-color: #ffffcc'><span class='glyphicon glyphicon-remove'> </span></a></div><div class='panel-body'><h3 class='node'><a href=" + url + "><img class='img-thumbnail mx-auto' src='./images/glyphicons-pages.png'></a></h3></div></div>";
 
                             var helper = $(ww.helper);
                             var position = helper.position();
@@ -106,11 +106,9 @@
 
         function renderDiagram(canvas,pageHtml) {
             canvas.empty();
-
             PageService
                 .findPagesForWebsite(websiteId)
                 .success(function(pages){
-
                     for(var p in pages) {
                         var html = pageHtml.replace(/PAGE_ID/g, pages[p]._id);
                         $(html)

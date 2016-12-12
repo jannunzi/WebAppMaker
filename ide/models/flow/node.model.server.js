@@ -6,11 +6,10 @@ module.exports = function () {
 
     var api = {
         getNodeForFlow: getNodeForFlow,
-        getNodeById: getNodeById
+        getNodeById: getNodeById,
+        updateNodeById: updateNodeById
     };
     return api;
-
-
 
 
     function getNodeById(developerId, websiteId, flowId, nodeId) {
@@ -22,5 +21,8 @@ module.exports = function () {
         return NodeModel.find({"_flow": flowId});
     }
 
+    function updateNodeById(nodeId, nodeObj) {
+        return NodeModel.findById(nodeId).update(nodeObj);
+    }
 
 };

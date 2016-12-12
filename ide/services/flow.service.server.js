@@ -1,8 +1,9 @@
-module.exports = function(app, model) {
+module.exports = function (app, model) {
     app.get("/user/:uid/website/:wid/flow", getFlowDiagram);
     app.get("/user/:uid/website/:wid/flow/:fid/node", getNodeForFlow);
     app.get("/user/:uid/website/:wid/flow/:fid/node/:nid", getNodeById);
     app.get("/user/:uid/website/:wid/flow/:fid/connection", getConnectionForFlow);
+    app.put("/user/:uid/website/:wid/flow/:fid/node/:nid", updateNodeById);
 
 
     function getNodeForFlow(req, res) {
@@ -14,10 +15,10 @@ module.exports = function(app, model) {
             .nodeModel
             .getNodeForFlow(userId, websiteId, flowId)
             .then(
-                function(nodes) {
+                function (nodes) {
                     res.json(nodes);
                 },
-                function(error) {
+                function (error) {
                     res.statusCode(400).send(error);
                 }
             );
@@ -32,10 +33,10 @@ module.exports = function(app, model) {
             .connectionModel
             .getConnectionForFlow(userId, websiteId, flowId)
             .then(
-                function(connections) {
+                function (connections) {
                     res.json(connections);
                 },
-                function(error) {
+                function (error) {
                     res.statusCode(400).send(error);
                 }
             );
@@ -50,10 +51,10 @@ module.exports = function(app, model) {
             .flowModel
             .getFlowDiagram(userId, websiteId)
             .then(
-                function(diagram) {
+                function (diagram) {
                     res.json(diagram);
                 },
-                function(error) {
+                function (error) {
                     res.statusCode(400).send(error);
                 }
             );
@@ -120,16 +121,34 @@ module.exports = function(app, model) {
             .nodeModel
             .getNodeById(nodeId)
             .then(
-                function(node) {
+                function (node) {
                     res.json(node);
                 },
-                function(error) {
+                function (error) {
                     res.statusCode(400).send(error);
                 }
             );
     }
 
 
+    function updateNodeById(req, res) {
+        var userId = req.params.uid;
+        var websiteId = req.params.wid;
+        var flowId = req.params.fid;
+        var nodeId = req.params.nid;
+        var nodeObj= req.body.node;
 
+        model
+            .nodeModel
+            .updateNodeById(nodeId, nodeObj)
+            .then(
+                function (node) {
+                    res.json(node);
+                },
+                function (error) {
+                    res.statusCode(400).send(error);
+                }
+            );
+    }
 
 };
