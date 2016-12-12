@@ -53,10 +53,22 @@
         {{model.diagram.nodes}}
     </div>
 
-
     <!--<div jga-droppable class="col-sm-8 pull-right" style="padding-left: 30px;padding-right: 0px;">-->
     <div jga-droppable class="col-sm-9 pull-right"
          style="overflow: hidden;position:absolute; bottom: 0px; top: 0px; right: 0px;">
+        <div ng-repeat="node in model.diagram.nodes"
+             style="position: absolute; top:{{node.y}}px; left:{{node.x}}px"
+             class="panel panel-primary" jga-draggable>
+            <div class="panel-heading">{{node.name}}</div>
+            <div class="panel-body">
+                <img class="img-thumbnail mx-auto" ng-src="images/glyphicons-pages.png" ng-if="node.type === 'PAGE'"/>
+                <img class="img-thumbnail mx-auto" ng-src="images/glyphicons-action.png"
+                     ng-if="node.type === 'ACTION'"/>
+                <img class="img-thumbnail mx-auto" ng-src="images/glyphicons-conditional.png"
+                     ng-if="node.type === 'CONDITIONAL'"/>
+            </div>
+        </div>
+
 
         <!--Issue id : FLOW-118
     Draw Arrows for Existing Diagram from database -->
