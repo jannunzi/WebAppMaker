@@ -90,8 +90,10 @@
 <div class="hidden-xs">
 <div class="row">
     <div class="col-xs-3">
+        <div class="form-group">
+            <label for="numericOutput2">Output</label>
         <div class="input-group">
-            <input ng-model="model.statement.numberStatement.output" type="text" class="form-control">
+            <input ng-model="model.statement.numberStatement.output" type="text" class="form-control" id="numericOutput2">
             <div class="input-group-btn">
                 <button type="button"
                         class="btn btn-default dropdown-toggle"
@@ -106,10 +108,14 @@
             </div>
         </div>
         <span class="pull-right" style="position: relative;top:-35px;left:20px">=</span>
+        </div>
     </div>
     <div class="col-xs-3">
+        <div class="form-group">
+            <label for="numericInput3">Input 1</label>
         <div class="input-group">
-            <input ng-model="model.statement.numberStatement.input1" type="text" class="form-control">
+
+            <input ng-model="model.statement.numberStatement.input1" type="text" class="form-control", id="numericInput3">
             <div class="input-group-btn">
                 <button type="button"
                         class="btn btn-default dropdown-toggle"
@@ -123,10 +129,12 @@
                 </ul>
             </div>
         </div>
+        </div>
     </div>
     <div class="col-xs-3">
+        <label for="numericOperation2">Operation</label>
         <select ng-model="model.statement.numberStatement.operationType"
-                class="form-control">
+                class="form-control", id="numericOperation2">
             <option value="">Select Operation</option>
             <option value="+">+</option>
             <option value="-">-</option>
@@ -136,8 +144,10 @@
         </select>
     </div>
     <div class="col-xs-3">
+        <div class="form-group">
+            <label for="numericInput4">Input 2</label>
         <div class="input-group">
-            <input ng-model="model.statement.numberStatement.input2" type="text" class="form-control">
+            <input ng-model="model.statement.numberStatement.input2" type="text" class="form-control", id="numericInput4">
             <div class="input-group-btn">
                 <button type="button"
                         class="btn btn-default dropdown-toggle"
@@ -151,6 +161,7 @@
                 </ul>
             </div>
         </div>
+            </div>
     </div>
 </div>
 </div>
