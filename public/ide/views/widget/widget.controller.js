@@ -150,39 +150,51 @@
         }
 
         function runScript(widgetId){
-            var model = Object.create(vm);
-            model.widgetId = widgetId;
-            ScriptService
-                .findScript(model)
-                .then(
-                    function(response) {
-                        model.script = response.data;
-                        console.log(model.script);
-                        if(!model.script || model.script == 'null') {
-                            model.script = {};
-                        }
-                        //AW: If script is present below action is executed
-                        else {
-                            model.scriptId = model.script._id;
-                            StatementService
-                                .findAllStatements(model)
-                                .then(
-                                    function (response) {
-                                        model.statements = response.data;
-                                        console.log(model.statements);
+            var widget;
+            for(var i = 0 ; i < vm.widgets.length; ++i){
+                if(widgetId === vm.widgets[i]._id) {
+                    widget = vm.widgets[i];
+                    break;
+                }
 
-                                        ScriptService.runScript(vm.widgets, model.statements);
-                                    },
-                                    function (err) {
-                                        vm.error = err;
-                                    }
-                                );
+            }
+
+            if(widget.statements)
+                ScriptService.runScript(vm.widgets, widget.statements);
+            else{
+                var model = Object.create(vm);
+                model.widgetId = widgetId;
+                ScriptService
+                    .findScript(model)
+                    .then(
+                        function(response) {
+                            model.script = response.data;
+                            console.log(model.script);
+                            if(!model.script || model.script == 'null') {
+                                model.script = {};
+                            }
+                            //AW: If script is present below action is executed
+                            else {
+                                model.scriptId = model.script._id;
+                                return StatementService.findAllStatements(model);
+
+                            }
+                        },
+                        function(err) {
+                            vm.error = err;
                         }
-                    },
-                    function(err) {
-                        vm.error = err;
-                    }
-                );
+                    )
+                    .then(
+                        function (response) {
+                            widget.statements = response.data;
+                            ScriptService.runScript(vm.widgets, widget.statements);
+                        },
+                        function (err) {
+                            vm.error = err;
+                        }
+                    );
+            }
+
         }
 
     }

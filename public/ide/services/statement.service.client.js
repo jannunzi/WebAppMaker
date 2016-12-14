@@ -273,7 +273,9 @@
                         break;
                     }
                 }
-                args.push(arg);
+
+                if(arg)
+                    args.push(arg);
             }
 
             var outputWidget;
