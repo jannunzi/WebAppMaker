@@ -158,7 +158,8 @@
                             //AW: Selected types are repopulated from the retrieved statement
                             if(vm.statement) {
                                 vm.statementType = getType(vm.statementTypes, vm.statement.statementType);
-                                vm.stringOperation = getType(vm.stringOperations, vm.statement.stringStatement.operationType);
+                                if(vm.statement.stringStatement)
+                                    vm.stringOperation = getType(vm.stringOperations, vm.statement.stringStatement.operationType);
                             }
                         },
                         function(err) {

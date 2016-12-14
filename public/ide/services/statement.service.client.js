@@ -300,7 +300,8 @@
 
             //var result = StringOperations[stringStatement.operationType](args);
             eval(expression);
-            outputWidget.text = result;
+            if(outputWidget)
+                outputWidget.text = result;
         }
 /*
         function substring(args){
