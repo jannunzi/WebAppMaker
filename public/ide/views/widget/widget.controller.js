@@ -169,7 +169,7 @@
                     .then(
                         function(response) {
                             model.script = response.data;
-                            console.log(model.script);
+                            //console.log(model.script);
                             if(!model.script || model.script == 'null') {
                                 model.script = {};
                             }

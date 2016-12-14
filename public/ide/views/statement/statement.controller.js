@@ -156,7 +156,7 @@
                         function(response) {
                             vm.statement = response.data;
                             //AW: Selected types are repopulated from the retrieved statement
-                            if(vm.statement != null) {
+                            if(vm.statement) {
                                 vm.statementType = getType(vm.statementTypes, vm.statement.statementType);
                                 vm.stringOperation = getType(vm.stringOperations, vm.statement.stringStatement.operationType);
                             }
